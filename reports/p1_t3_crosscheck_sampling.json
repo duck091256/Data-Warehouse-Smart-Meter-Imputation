@@ -1,0 +1,1867 @@
+{
+  "protocol_version": "v1.1",
+  "description": "Deterministic stratified cumulative cohorts S3 \u2282 S20 \u2282 S40 \u2282 S60 \u2282 S79",
+  "sampling_method": "Stratified round-robin across 20 distinct (building, category, cadence_class) strata preserving pilot meters S3",
+  "seed": "deterministic_strata_lexicographical",
+  "total_meters": 79,
+  "cumulative_cohorts": {
+    "S3": 3,
+    "S20": 20,
+    "S40": 40,
+    "S60": 60,
+    "S79": 79
+  },
+  "cohort_summaries": {
+    "S3": {
+      "n_meters": 3,
+      "buildings": {
+        "H1": 2,
+        "V": 1
+      },
+      "categories": {
+        "Z": 1,
+        "ZE": 1,
+        "K": 1
+      },
+      "cadence_classes": {
+        "C1M": 1,
+        "C30S": 1,
+        "C6M": 1
+      },
+      "special_cases": {
+        "none": 1,
+        "CT_inversion": 1,
+        "x100_scale": 1
+      }
+    },
+    "S20": {
+      "n_meters": 20,
+      "buildings": {
+        "H1": 6,
+        "V": 4,
+        "H2": 5,
+        "H3": 3,
+        "H4": 2
+      },
+      "categories": {
+        "Z": 9,
+        "ZE": 5,
+        "K": 3,
+        "W": 2,
+        "T.Z": 1
+      },
+      "cadence_classes": {
+        "C1M": 5,
+        "C30S": 9,
+        "C6M": 4,
+        "C2M": 1,
+        "C15S": 1
+      },
+      "special_cases": {
+        "none": 16,
+        "CT_inversion": 1,
+        "x100_scale": 1,
+        "short_history": 1,
+        "dedup": 1
+      }
+    },
+    "S40": {
+      "n_meters": 40,
+      "buildings": {
+        "H1": 12,
+        "V": 5,
+        "H2": 13,
+        "H3": 6,
+        "H4": 4
+      },
+      "categories": {
+        "Z": 21,
+        "ZE": 9,
+        "K": 5,
+        "W": 2,
+        "T.Z": 3
+      },
+      "cadence_classes": {
+        "C1M": 14,
+        "C30S": 18,
+        "C6M": 6,
+        "C2M": 1,
+        "C15S": 1
+      },
+      "special_cases": {
+        "none": 36,
+        "CT_inversion": 1,
+        "x100_scale": 1,
+        "short_history": 1,
+        "dedup": 1
+      }
+    },
+    "S60": {
+      "n_meters": 60,
+      "buildings": {
+        "H1": 20,
+        "V": 5,
+        "H2": 20,
+        "H3": 11,
+        "H4": 4
+      },
+      "categories": {
+        "Z": 33,
+        "ZE": 13,
+        "K": 7,
+        "W": 2,
+        "T.Z": 5
+      },
+      "cadence_classes": {
+        "C1M": 25,
+        "C30S": 25,
+        "C6M": 8,
+        "C2M": 1,
+        "C15S": 1
+      },
+      "special_cases": {
+        "none": 56,
+        "CT_inversion": 1,
+        "x100_scale": 1,
+        "short_history": 1,
+        "dedup": 1
+      }
+    },
+    "S79": {
+      "n_meters": 79,
+      "buildings": {
+        "H1": 29,
+        "V": 5,
+        "H2": 26,
+        "H3": 15,
+        "H4": 4
+      },
+      "categories": {
+        "Z": 52,
+        "ZE": 13,
+        "K": 7,
+        "W": 2,
+        "T.Z": 5
+      },
+      "cadence_classes": {
+        "C1M": 44,
+        "C30S": 25,
+        "C6M": 8,
+        "C2M": 1,
+        "C15S": 1
+      },
+      "special_cases": {
+        "none": 75,
+        "CT_inversion": 1,
+        "x100_scale": 1,
+        "short_history": 1,
+        "dedup": 1
+      }
+    }
+  },
+  "ordered_meters": [
+    {
+      "meter_id": "H1.Z10",
+      "building": "H1",
+      "category": "Z",
+      "cadence_class": "C1M",
+      "special_case": "none",
+      "source_min_utc": "2018-01-01T00:00:00+00:00",
+      "source_max_utc": "2024-01-01T00:00:00+00:00",
+      "grid_rows": 210337,
+      "occupied_bins": 210337,
+      "empty_bins": 0,
+      "occupied_rate": 1.0,
+      "median_gap_seconds": 60.0,
+      "sampling_rank": 1,
+      "first_cohort": "S3",
+      "cohort_membership": [
+        "S3",
+        "S20",
+        "S40",
+        "S60",
+        "S79"
+      ],
+      "stratum_str": "H1.Z.C1M"
+    },
+    {
+      "meter_id": "V.ZE84",
+      "building": "V",
+      "category": "ZE",
+      "cadence_class": "C30S",
+      "special_case": "CT_inversion",
+      "source_min_utc": "2022-11-23T15:57:55+00:00",
+      "source_max_utc": "2023-12-31T22:40:23.575000+00:00",
+      "grid_rows": 38716,
+      "occupied_bins": 30995,
+      "empty_bins": 7721,
+      "occupied_rate": 0.8005734063436305,
+      "median_gap_seconds": 30.0,
+      "sampling_rank": 2,
+      "first_cohort": "S3",
+      "cohort_membership": [
+        "S3",
+        "S20",
+        "S40",
+        "S60",
+        "S79"
+      ],
+      "stratum_str": "V.ZE.C30S"
+    },
+    {
+      "meter_id": "H1.K11",
+      "building": "H1",
+      "category": "K",
+      "cadence_class": "C6M",
+      "special_case": "x100_scale",
+      "source_min_utc": "2018-01-04T11:30:00+00:00",
+      "source_max_utc": "2023-12-31T22:54:00+00:00",
+      "grid_rows": 209999,
+      "occupied_bins": 156082,
+      "empty_bins": 53917,
+      "occupied_rate": 0.7432511583388492,
+      "median_gap_seconds": 360.0,
+      "sampling_rank": 3,
+      "first_cohort": "S3",
+      "cohort_membership": [
+        "S3",
+        "S20",
+        "S40",
+        "S60",
+        "S79"
+      ],
+      "stratum_str": "H1.K.C6M"
+    },
+    {
+      "meter_id": "H1.W12",
+      "building": "H1",
+      "category": "W",
+      "cadence_class": "C2M",
+      "special_case": "none",
+      "source_min_utc": "2017-12-31T23:16:00+00:00",
+      "source_max_utc": "2023-12-31T22:58:00+00:00",
+      "grid_rows": 210335,
+      "occupied_bins": 178874,
+      "empty_bins": 31461,
+      "occupied_rate": 0.8504243231036204,
+      "median_gap_seconds": 120.0,
+      "sampling_rank": 4,
+      "first_cohort": "S20",
+      "cohort_membership": [
+        "S20",
+        "S40",
+        "S60",
+        "S79"
+      ],
+      "stratum_str": "H1.W.C2M"
+    },
+    {
+      "meter_id": "H1.W11",
+      "building": "H1",
+      "category": "W",
+      "cadence_class": "C6M",
+      "special_case": "none",
+      "source_min_utc": "2017-12-31T23:11:00+00:00",
+      "source_max_utc": "2023-12-31T22:54:00+00:00",
+      "grid_rows": 210336,
+      "occupied_bins": 185064,
+      "empty_bins": 25272,
+      "occupied_rate": 0.879849383842994,
+      "median_gap_seconds": 360.0,
+      "sampling_rank": 5,
+      "first_cohort": "S20",
+      "cohort_membership": [
+        "S20",
+        "S40",
+        "S60",
+        "S79"
+      ],
+      "stratum_str": "H1.W.C6M"
+    },
+    {
+      "meter_id": "H1.Z15",
+      "building": "H1",
+      "category": "Z",
+      "cadence_class": "C30S",
+      "special_case": "none",
+      "source_min_utc": "2017-12-31T23:00:04+00:00",
+      "source_max_utc": "2023-12-31T22:59:53.976000+00:00",
+      "grid_rows": 210336,
+      "occupied_bins": 206846,
+      "empty_bins": 3490,
+      "occupied_rate": 0.9834075003803439,
+      "median_gap_seconds": 30.0,
+      "sampling_rank": 6,
+      "first_cohort": "S20",
+      "cohort_membership": [
+        "S20",
+        "S40",
+        "S60",
+        "S79"
+      ],
+      "stratum_str": "H1.Z.C30S"
+    },
+    {
+      "meter_id": "H1.ZE20",
+      "building": "H1",
+      "category": "ZE",
+      "cadence_class": "C30S",
+      "special_case": "short_history",
+      "source_min_utc": "2022-11-30T08:18:47+00:00",
+      "source_max_utc": "2023-12-31T22:59:54.825999+00:00",
+      "grid_rows": 38075,
+      "occupied_bins": 27980,
+      "empty_bins": 10095,
+      "occupied_rate": 0.734865397242285,
+      "median_gap_seconds": 30.0,
+      "sampling_rank": 7,
+      "first_cohort": "S20",
+      "cohort_membership": [
+        "S20",
+        "S40",
+        "S60",
+        "S79"
+      ],
+      "stratum_str": "H1.ZE.C30S"
+    },
+    {
+      "meter_id": "H2.K21",
+      "building": "H2",
+      "category": "K",
+      "cadence_class": "C6M",
+      "special_case": "none",
+      "source_min_utc": "2018-01-03T18:03:01+00:00",
+      "source_max_utc": "2023-12-31T22:55:00+00:00",
+      "grid_rows": 210068,
+      "occupied_bins": 149169,
+      "empty_bins": 60899,
+      "occupied_rate": 0.7100986347278024,
+      "median_gap_seconds": 361.0,
+      "sampling_rank": 8,
+      "first_cohort": "S20",
+      "cohort_membership": [
+        "S20",
+        "S40",
+        "S60",
+        "S79"
+      ],
+      "stratum_str": "H2.K.C6M"
+    },
+    {
+      "meter_id": "H2.T.Z30",
+      "building": "H2",
+      "category": "T.Z",
+      "cadence_class": "C1M",
+      "special_case": "none",
+      "source_min_utc": "2018-11-10T06:57:00+00:00",
+      "source_max_utc": "2023-12-31T22:42:00+00:00",
+      "grid_rows": 180256,
+      "occupied_bins": 180256,
+      "empty_bins": 0,
+      "occupied_rate": 1.0,
+      "median_gap_seconds": 60.0,
+      "sampling_rank": 9,
+      "first_cohort": "S20",
+      "cohort_membership": [
+        "S20",
+        "S40",
+        "S60",
+        "S79"
+      ],
+      "stratum_str": "H2.T.Z.C1M"
+    },
+    {
+      "meter_id": "H2.Z35",
+      "building": "H2",
+      "category": "Z",
+      "cadence_class": "C1M",
+      "special_case": "none",
+      "source_min_utc": "2018-01-01T00:00:00+00:00",
+      "source_max_utc": "2024-01-01T00:00:00+00:00",
+      "grid_rows": 210337,
+      "occupied_bins": 210337,
+      "empty_bins": 0,
+      "occupied_rate": 1.0,
+      "median_gap_seconds": 60.0,
+      "sampling_rank": 10,
+      "first_cohort": "S20",
+      "cohort_membership": [
+        "S20",
+        "S40",
+        "S60",
+        "S79"
+      ],
+      "stratum_str": "H2.Z.C1M"
+    },
+    {
+      "meter_id": "H2.Z311",
+      "building": "H2",
+      "category": "Z",
+      "cadence_class": "C30S",
+      "special_case": "none",
+      "source_min_utc": "2020-06-24T22:00:38+00:00",
+      "source_max_utc": "2023-12-31T15:14:56.706000+00:00",
+      "grid_rows": 123333,
+      "occupied_bins": 64538,
+      "empty_bins": 58795,
+      "occupied_rate": 0.5232824953580956,
+      "median_gap_seconds": 30.0,
+      "sampling_rank": 11,
+      "first_cohort": "S20",
+      "cohort_membership": [
+        "S20",
+        "S40",
+        "S60",
+        "S79"
+      ],
+      "stratum_str": "H2.Z.C30S"
+    },
+    {
+      "meter_id": "H2.ZE64",
+      "building": "H2",
+      "category": "ZE",
+      "cadence_class": "C30S",
+      "special_case": "none",
+      "source_min_utc": "2022-03-22T14:54:42+00:00",
+      "source_max_utc": "2023-12-31T22:59:56.170000+00:00",
+      "grid_rows": 62337,
+      "occupied_bins": 61479,
+      "empty_bins": 858,
+      "occupied_rate": 0.9862361037586025,
+      "median_gap_seconds": 30.0,
+      "sampling_rank": 12,
+      "first_cohort": "S20",
+      "cohort_membership": [
+        "S20",
+        "S40",
+        "S60",
+        "S79"
+      ],
+      "stratum_str": "H2.ZE.C30S"
+    },
+    {
+      "meter_id": "H3.Z40",
+      "building": "H3",
+      "category": "Z",
+      "cadence_class": "C1M",
+      "special_case": "none",
+      "source_min_utc": "2018-01-01T00:00:00+00:00",
+      "source_max_utc": "2024-01-01T00:00:00+00:00",
+      "grid_rows": 210337,
+      "occupied_bins": 210337,
+      "empty_bins": 0,
+      "occupied_rate": 1.0,
+      "median_gap_seconds": 60.0,
+      "sampling_rank": 13,
+      "first_cohort": "S20",
+      "cohort_membership": [
+        "S20",
+        "S40",
+        "S60",
+        "S79"
+      ],
+      "stratum_str": "H3.Z.C1M"
+    },
+    {
+      "meter_id": "H3.Z312",
+      "building": "H3",
+      "category": "Z",
+      "cadence_class": "C30S",
+      "special_case": "none",
+      "source_min_utc": "2020-06-25T22:00:00+00:00",
+      "source_max_utc": "2023-12-31T15:17:50.016000+00:00",
+      "grid_rows": 123239,
+      "occupied_bins": 65242,
+      "empty_bins": 57997,
+      "occupied_rate": 0.5293941041391118,
+      "median_gap_seconds": 30.0,
+      "sampling_rank": 14,
+      "first_cohort": "S20",
+      "cohort_membership": [
+        "S20",
+        "S40",
+        "S60",
+        "S79"
+      ],
+      "stratum_str": "H3.Z.C30S"
+    },
+    {
+      "meter_id": "H3.ZE40",
+      "building": "H3",
+      "category": "ZE",
+      "cadence_class": "C30S",
+      "special_case": "none",
+      "source_min_utc": "2022-03-18T09:24:53+00:00",
+      "source_max_utc": "2023-12-31T22:59:58.450000+00:00",
+      "grid_rows": 62743,
+      "occupied_bins": 60661,
+      "empty_bins": 2082,
+      "occupied_rate": 0.9668170154439539,
+      "median_gap_seconds": 30.0,
+      "sampling_rank": 15,
+      "first_cohort": "S20",
+      "cohort_membership": [
+        "S20",
+        "S40",
+        "S60",
+        "S79"
+      ],
+      "stratum_str": "H3.ZE.C30S"
+    },
+    {
+      "meter_id": "H4.Z50",
+      "building": "H4",
+      "category": "Z",
+      "cadence_class": "C1M",
+      "special_case": "none",
+      "source_min_utc": "2018-01-01T00:00:00+00:00",
+      "source_max_utc": "2024-01-01T00:00:00+00:00",
+      "grid_rows": 210337,
+      "occupied_bins": 210337,
+      "empty_bins": 0,
+      "occupied_rate": 1.0,
+      "median_gap_seconds": 60.0,
+      "sampling_rank": 16,
+      "first_cohort": "S20",
+      "cohort_membership": [
+        "S20",
+        "S40",
+        "S60",
+        "S79"
+      ],
+      "stratum_str": "H4.Z.C1M"
+    },
+    {
+      "meter_id": "H4.ZE50",
+      "building": "H4",
+      "category": "ZE",
+      "cadence_class": "C30S",
+      "special_case": "none",
+      "source_min_utc": "2022-03-22T11:37:12+00:00",
+      "source_max_utc": "2023-12-31T22:59:55.836000+00:00",
+      "grid_rows": 62350,
+      "occupied_bins": 61492,
+      "empty_bins": 858,
+      "occupied_rate": 0.9862389735364876,
+      "median_gap_seconds": 30.0,
+      "sampling_rank": 17,
+      "first_cohort": "S20",
+      "cohort_membership": [
+        "S20",
+        "S40",
+        "S60",
+        "S79"
+      ],
+      "stratum_str": "H4.ZE.C30S"
+    },
+    {
+      "meter_id": "V.K21",
+      "building": "V",
+      "category": "K",
+      "cadence_class": "C6M",
+      "special_case": "none",
+      "source_min_utc": "2018-01-03T11:03:00+00:00",
+      "source_max_utc": "2023-12-31T22:54:00+00:00",
+      "grid_rows": 210096,
+      "occupied_bins": 158635,
+      "empty_bins": 51461,
+      "occupied_rate": 0.7550595918056507,
+      "median_gap_seconds": 360.0,
+      "sampling_rank": 18,
+      "first_cohort": "S20",
+      "cohort_membership": [
+        "S20",
+        "S40",
+        "S60",
+        "S79"
+      ],
+      "stratum_str": "V.K.C6M"
+    },
+    {
+      "meter_id": "V.Z84",
+      "building": "V",
+      "category": "Z",
+      "cadence_class": "C15S",
+      "special_case": "dedup",
+      "source_min_utc": "2019-06-28T22:00:39+00:00",
+      "source_max_utc": "2023-12-31T22:59:30.041699+00:00",
+      "grid_rows": 158116,
+      "occupied_bins": 156153,
+      "empty_bins": 1963,
+      "occupied_rate": 0.9875850641301324,
+      "median_gap_seconds": 18.0,
+      "sampling_rank": 19,
+      "first_cohort": "S20",
+      "cohort_membership": [
+        "S20",
+        "S40",
+        "S60",
+        "S79"
+      ],
+      "stratum_str": "V.Z.C15S"
+    },
+    {
+      "meter_id": "V.Z81",
+      "building": "V",
+      "category": "Z",
+      "cadence_class": "C30S",
+      "special_case": "none",
+      "source_min_utc": "2017-12-31T23:00:03+00:00",
+      "source_max_utc": "2023-12-31T22:59:56.454999+00:00",
+      "grid_rows": 210336,
+      "occupied_bins": 206414,
+      "empty_bins": 3922,
+      "occupied_rate": 0.9813536436938993,
+      "median_gap_seconds": 30.0,
+      "sampling_rank": 20,
+      "first_cohort": "S20",
+      "cohort_membership": [
+        "S20",
+        "S40",
+        "S60",
+        "S79"
+      ],
+      "stratum_str": "V.Z.C30S"
+    },
+    {
+      "meter_id": "H1.K12",
+      "building": "H1",
+      "category": "K",
+      "cadence_class": "C6M",
+      "special_case": "none",
+      "source_min_utc": "2018-01-03T21:55:00+00:00",
+      "source_max_utc": "2023-12-31T22:54:00+00:00",
+      "grid_rows": 210053,
+      "occupied_bins": 156667,
+      "empty_bins": 53386,
+      "occupied_rate": 0.7458450962376162,
+      "median_gap_seconds": 360.0,
+      "sampling_rank": 21,
+      "first_cohort": "S40",
+      "cohort_membership": [
+        "S40",
+        "S60",
+        "S79"
+      ],
+      "stratum_str": "H1.K.C6M"
+    },
+    {
+      "meter_id": "H1.Z11",
+      "building": "H1",
+      "category": "Z",
+      "cadence_class": "C1M",
+      "special_case": "none",
+      "source_min_utc": "2018-01-01T00:00:00+00:00",
+      "source_max_utc": "2024-01-01T00:00:00+00:00",
+      "grid_rows": 210337,
+      "occupied_bins": 210337,
+      "empty_bins": 0,
+      "occupied_rate": 1.0,
+      "median_gap_seconds": 60.0,
+      "sampling_rank": 22,
+      "first_cohort": "S40",
+      "cohort_membership": [
+        "S40",
+        "S60",
+        "S79"
+      ],
+      "stratum_str": "H1.Z.C1M"
+    },
+    {
+      "meter_id": "H1.Z17",
+      "building": "H1",
+      "category": "Z",
+      "cadence_class": "C30S",
+      "special_case": "none",
+      "source_min_utc": "2017-12-31T23:00:06+00:00",
+      "source_max_utc": "2023-12-31T22:59:54.601000+00:00",
+      "grid_rows": 210336,
+      "occupied_bins": 206834,
+      "empty_bins": 3502,
+      "occupied_rate": 0.9833504488057204,
+      "median_gap_seconds": 30.0,
+      "sampling_rank": 23,
+      "first_cohort": "S40",
+      "cohort_membership": [
+        "S40",
+        "S60",
+        "S79"
+      ],
+      "stratum_str": "H1.Z.C30S"
+    },
+    {
+      "meter_id": "H2.T.Z31",
+      "building": "H2",
+      "category": "T.Z",
+      "cadence_class": "C1M",
+      "special_case": "none",
+      "source_min_utc": "2018-11-10T06:57:00+00:00",
+      "source_max_utc": "2023-12-31T22:42:00+00:00",
+      "grid_rows": 180256,
+      "occupied_bins": 180256,
+      "empty_bins": 0,
+      "occupied_rate": 1.0,
+      "median_gap_seconds": 60.0,
+      "sampling_rank": 24,
+      "first_cohort": "S40",
+      "cohort_membership": [
+        "S40",
+        "S60",
+        "S79"
+      ],
+      "stratum_str": "H2.T.Z.C1M"
+    },
+    {
+      "meter_id": "H2.Z36",
+      "building": "H2",
+      "category": "Z",
+      "cadence_class": "C1M",
+      "special_case": "none",
+      "source_min_utc": "2018-01-01T00:00:00+00:00",
+      "source_max_utc": "2024-01-01T00:00:00+00:00",
+      "grid_rows": 210337,
+      "occupied_bins": 210337,
+      "empty_bins": 0,
+      "occupied_rate": 1.0,
+      "median_gap_seconds": 60.0,
+      "sampling_rank": 25,
+      "first_cohort": "S40",
+      "cohort_membership": [
+        "S40",
+        "S60",
+        "S79"
+      ],
+      "stratum_str": "H2.Z.C1M"
+    },
+    {
+      "meter_id": "H2.Z351",
+      "building": "H2",
+      "category": "Z",
+      "cadence_class": "C30S",
+      "special_case": "none",
+      "source_min_utc": "2020-09-15T10:00:13+00:00",
+      "source_max_utc": "2023-12-31T22:59:30.528000+00:00",
+      "grid_rows": 115444,
+      "occupied_bins": 114207,
+      "empty_bins": 1237,
+      "occupied_rate": 0.9892848480648626,
+      "median_gap_seconds": 30.0,
+      "sampling_rank": 26,
+      "first_cohort": "S40",
+      "cohort_membership": [
+        "S40",
+        "S60",
+        "S79"
+      ],
+      "stratum_str": "H2.Z.C30S"
+    },
+    {
+      "meter_id": "H2.ZE65",
+      "building": "H2",
+      "category": "ZE",
+      "cadence_class": "C30S",
+      "special_case": "none",
+      "source_min_utc": "2022-03-22T14:54:43+00:00",
+      "source_max_utc": "2023-12-09T21:08:57.793999+00:00",
+      "grid_rows": 60218,
+      "occupied_bins": 59449,
+      "empty_bins": 769,
+      "occupied_rate": 0.9872297319738285,
+      "median_gap_seconds": 30.0,
+      "sampling_rank": 27,
+      "first_cohort": "S40",
+      "cohort_membership": [
+        "S40",
+        "S60",
+        "S79"
+      ],
+      "stratum_str": "H2.ZE.C30S"
+    },
+    {
+      "meter_id": "H3.Z41",
+      "building": "H3",
+      "category": "Z",
+      "cadence_class": "C1M",
+      "special_case": "none",
+      "source_min_utc": "2018-01-01T00:00:00+00:00",
+      "source_max_utc": "2024-01-01T00:00:00+00:00",
+      "grid_rows": 210337,
+      "occupied_bins": 210337,
+      "empty_bins": 0,
+      "occupied_rate": 1.0,
+      "median_gap_seconds": 60.0,
+      "sampling_rank": 28,
+      "first_cohort": "S40",
+      "cohort_membership": [
+        "S40",
+        "S60",
+        "S79"
+      ],
+      "stratum_str": "H3.Z.C1M"
+    },
+    {
+      "meter_id": "H3.ZE41",
+      "building": "H3",
+      "category": "ZE",
+      "cadence_class": "C30S",
+      "special_case": "none",
+      "source_min_utc": "2022-03-18T09:24:52+00:00",
+      "source_max_utc": "2023-12-31T22:59:57.566999+00:00",
+      "grid_rows": 62743,
+      "occupied_bins": 60661,
+      "empty_bins": 2082,
+      "occupied_rate": 0.9668170154439539,
+      "median_gap_seconds": 30.0,
+      "sampling_rank": 29,
+      "first_cohort": "S40",
+      "cohort_membership": [
+        "S40",
+        "S60",
+        "S79"
+      ],
+      "stratum_str": "H3.ZE.C30S"
+    },
+    {
+      "meter_id": "H4.Z51",
+      "building": "H4",
+      "category": "Z",
+      "cadence_class": "C1M",
+      "special_case": "none",
+      "source_min_utc": "2018-01-01T00:00:00+00:00",
+      "source_max_utc": "2024-01-01T00:00:00+00:00",
+      "grid_rows": 210337,
+      "occupied_bins": 210337,
+      "empty_bins": 0,
+      "occupied_rate": 1.0,
+      "median_gap_seconds": 60.0,
+      "sampling_rank": 30,
+      "first_cohort": "S40",
+      "cohort_membership": [
+        "S40",
+        "S60",
+        "S79"
+      ],
+      "stratum_str": "H4.Z.C1M"
+    },
+    {
+      "meter_id": "H4.ZE51",
+      "building": "H4",
+      "category": "ZE",
+      "cadence_class": "C30S",
+      "special_case": "none",
+      "source_min_utc": "2022-03-22T11:37:11+00:00",
+      "source_max_utc": "2023-12-31T22:59:55.549999+00:00",
+      "grid_rows": 62350,
+      "occupied_bins": 61492,
+      "empty_bins": 858,
+      "occupied_rate": 0.9862389735364876,
+      "median_gap_seconds": 30.0,
+      "sampling_rank": 31,
+      "first_cohort": "S40",
+      "cohort_membership": [
+        "S40",
+        "S60",
+        "S79"
+      ],
+      "stratum_str": "H4.ZE.C30S"
+    },
+    {
+      "meter_id": "V.Z82",
+      "building": "V",
+      "category": "Z",
+      "cadence_class": "C30S",
+      "special_case": "none",
+      "source_min_utc": "2017-12-31T23:00:05+00:00",
+      "source_max_utc": "2023-12-31T22:59:57.064999+00:00",
+      "grid_rows": 210336,
+      "occupied_bins": 206419,
+      "empty_bins": 3917,
+      "occupied_rate": 0.9813774151833258,
+      "median_gap_seconds": 30.0,
+      "sampling_rank": 32,
+      "first_cohort": "S40",
+      "cohort_membership": [
+        "S40",
+        "S60",
+        "S79"
+      ],
+      "stratum_str": "V.Z.C30S"
+    },
+    {
+      "meter_id": "H1.K14",
+      "building": "H1",
+      "category": "K",
+      "cadence_class": "C6M",
+      "special_case": "none",
+      "source_min_utc": "2018-01-03T12:36:00+00:00",
+      "source_max_utc": "2023-12-31T22:54:00+00:00",
+      "grid_rows": 210090,
+      "occupied_bins": 157411,
+      "empty_bins": 52679,
+      "occupied_rate": 0.7492550811556952,
+      "median_gap_seconds": 360.0,
+      "sampling_rank": 33,
+      "first_cohort": "S40",
+      "cohort_membership": [
+        "S40",
+        "S60",
+        "S79"
+      ],
+      "stratum_str": "H1.K.C6M"
+    },
+    {
+      "meter_id": "H1.Z12",
+      "building": "H1",
+      "category": "Z",
+      "cadence_class": "C1M",
+      "special_case": "none",
+      "source_min_utc": "2018-01-01T00:00:00+00:00",
+      "source_max_utc": "2024-01-01T00:00:00+00:00",
+      "grid_rows": 210337,
+      "occupied_bins": 210337,
+      "empty_bins": 0,
+      "occupied_rate": 1.0,
+      "median_gap_seconds": 60.0,
+      "sampling_rank": 34,
+      "first_cohort": "S40",
+      "cohort_membership": [
+        "S40",
+        "S60",
+        "S79"
+      ],
+      "stratum_str": "H1.Z.C1M"
+    },
+    {
+      "meter_id": "H1.Z26",
+      "building": "H1",
+      "category": "Z",
+      "cadence_class": "C30S",
+      "special_case": "none",
+      "source_min_utc": "2017-12-31T23:47:06+00:00",
+      "source_max_utc": "2023-12-31T22:59:30.300000+00:00",
+      "grid_rows": 210333,
+      "occupied_bins": 204269,
+      "empty_bins": 6064,
+      "occupied_rate": 0.971169526417633,
+      "median_gap_seconds": 30.0,
+      "sampling_rank": 35,
+      "first_cohort": "S40",
+      "cohort_membership": [
+        "S40",
+        "S60",
+        "S79"
+      ],
+      "stratum_str": "H1.Z.C30S"
+    },
+    {
+      "meter_id": "H2.T.Z32",
+      "building": "H2",
+      "category": "T.Z",
+      "cadence_class": "C1M",
+      "special_case": "none",
+      "source_min_utc": "2018-11-10T06:57:00+00:00",
+      "source_max_utc": "2023-12-31T22:42:00+00:00",
+      "grid_rows": 180256,
+      "occupied_bins": 180256,
+      "empty_bins": 0,
+      "occupied_rate": 1.0,
+      "median_gap_seconds": 60.0,
+      "sampling_rank": 36,
+      "first_cohort": "S40",
+      "cohort_membership": [
+        "S40",
+        "S60",
+        "S79"
+      ],
+      "stratum_str": "H2.T.Z.C1M"
+    },
+    {
+      "meter_id": "H2.Z61",
+      "building": "H2",
+      "category": "Z",
+      "cadence_class": "C1M",
+      "special_case": "none",
+      "source_min_utc": "2018-01-01T00:00:00+00:00",
+      "source_max_utc": "2024-01-01T00:00:00+00:00",
+      "grid_rows": 210337,
+      "occupied_bins": 210337,
+      "empty_bins": 0,
+      "occupied_rate": 1.0,
+      "median_gap_seconds": 60.0,
+      "sampling_rank": 37,
+      "first_cohort": "S40",
+      "cohort_membership": [
+        "S40",
+        "S60",
+        "S79"
+      ],
+      "stratum_str": "H2.Z.C1M"
+    },
+    {
+      "meter_id": "H2.Z361",
+      "building": "H2",
+      "category": "Z",
+      "cadence_class": "C30S",
+      "special_case": "none",
+      "source_min_utc": "2020-09-15T10:00:12+00:00",
+      "source_max_utc": "2023-12-31T22:59:54.188000+00:00",
+      "grid_rows": 115444,
+      "occupied_bins": 114203,
+      "empty_bins": 1241,
+      "occupied_rate": 0.9892501992307959,
+      "median_gap_seconds": 30.0,
+      "sampling_rank": 38,
+      "first_cohort": "S40",
+      "cohort_membership": [
+        "S40",
+        "S60",
+        "S79"
+      ],
+      "stratum_str": "H2.Z.C30S"
+    },
+    {
+      "meter_id": "H2.ZE66",
+      "building": "H2",
+      "category": "ZE",
+      "cadence_class": "C30S",
+      "special_case": "none",
+      "source_min_utc": "2022-03-22T14:54:43+00:00",
+      "source_max_utc": "2023-12-31T22:59:56.711000+00:00",
+      "grid_rows": 62337,
+      "occupied_bins": 61319,
+      "empty_bins": 1018,
+      "occupied_rate": 0.9836694098208126,
+      "median_gap_seconds": 30.066001,
+      "sampling_rank": 39,
+      "first_cohort": "S40",
+      "cohort_membership": [
+        "S40",
+        "S60",
+        "S79"
+      ],
+      "stratum_str": "H2.ZE.C30S"
+    },
+    {
+      "meter_id": "H3.Z43",
+      "building": "H3",
+      "category": "Z",
+      "cadence_class": "C1M",
+      "special_case": "none",
+      "source_min_utc": "2018-01-01T00:00:00+00:00",
+      "source_max_utc": "2024-01-01T00:00:00+00:00",
+      "grid_rows": 210337,
+      "occupied_bins": 210337,
+      "empty_bins": 0,
+      "occupied_rate": 1.0,
+      "median_gap_seconds": 60.0,
+      "sampling_rank": 40,
+      "first_cohort": "S40",
+      "cohort_membership": [
+        "S40",
+        "S60",
+        "S79"
+      ],
+      "stratum_str": "H3.Z.C1M"
+    },
+    {
+      "meter_id": "H3.ZE43",
+      "building": "H3",
+      "category": "ZE",
+      "cadence_class": "C30S",
+      "special_case": "none",
+      "source_min_utc": "2022-03-18T09:24:56+00:00",
+      "source_max_utc": "2023-12-31T22:59:59.322000+00:00",
+      "grid_rows": 62743,
+      "occupied_bins": 60574,
+      "empty_bins": 2169,
+      "occupied_rate": 0.96543040657922,
+      "median_gap_seconds": 30.0,
+      "sampling_rank": 41,
+      "first_cohort": "S60",
+      "cohort_membership": [
+        "S60",
+        "S79"
+      ],
+      "stratum_str": "H3.ZE.C30S"
+    },
+    {
+      "meter_id": "H1.K15",
+      "building": "H1",
+      "category": "K",
+      "cadence_class": "C6M",
+      "special_case": "none",
+      "source_min_utc": "2018-01-03T10:39:00+00:00",
+      "source_max_utc": "2023-12-31T22:54:00+00:00",
+      "grid_rows": 210098,
+      "occupied_bins": 162943,
+      "empty_bins": 47155,
+      "occupied_rate": 0.7755571209625984,
+      "median_gap_seconds": 360.0,
+      "sampling_rank": 42,
+      "first_cohort": "S60",
+      "cohort_membership": [
+        "S60",
+        "S79"
+      ],
+      "stratum_str": "H1.K.C6M"
+    },
+    {
+      "meter_id": "H1.Z13",
+      "building": "H1",
+      "category": "Z",
+      "cadence_class": "C1M",
+      "special_case": "none",
+      "source_min_utc": "2018-01-01T00:00:00+00:00",
+      "source_max_utc": "2024-01-01T00:00:00+00:00",
+      "grid_rows": 210337,
+      "occupied_bins": 210337,
+      "empty_bins": 0,
+      "occupied_rate": 1.0,
+      "median_gap_seconds": 60.0,
+      "sampling_rank": 43,
+      "first_cohort": "S60",
+      "cohort_membership": [
+        "S60",
+        "S79"
+      ],
+      "stratum_str": "H1.Z.C1M"
+    },
+    {
+      "meter_id": "H1.Z28",
+      "building": "H1",
+      "category": "Z",
+      "cadence_class": "C30S",
+      "special_case": "none",
+      "source_min_utc": "2017-12-31T23:00:06+00:00",
+      "source_max_utc": "2023-12-31T22:59:30.918999+00:00",
+      "grid_rows": 210336,
+      "occupied_bins": 206839,
+      "empty_bins": 3497,
+      "occupied_rate": 0.9833742202951468,
+      "median_gap_seconds": 30.0,
+      "sampling_rank": 44,
+      "first_cohort": "S60",
+      "cohort_membership": [
+        "S60",
+        "S79"
+      ],
+      "stratum_str": "H1.Z.C30S"
+    },
+    {
+      "meter_id": "H2.T.Z33",
+      "building": "H2",
+      "category": "T.Z",
+      "cadence_class": "C1M",
+      "special_case": "none",
+      "source_min_utc": "2018-01-01T00:00:00+00:00",
+      "source_max_utc": "2024-01-01T00:00:00+00:00",
+      "grid_rows": 210337,
+      "occupied_bins": 210337,
+      "empty_bins": 0,
+      "occupied_rate": 1.0,
+      "median_gap_seconds": 60.0,
+      "sampling_rank": 45,
+      "first_cohort": "S60",
+      "cohort_membership": [
+        "S60",
+        "S79"
+      ],
+      "stratum_str": "H2.T.Z.C1M"
+    },
+    {
+      "meter_id": "H2.Z62",
+      "building": "H2",
+      "category": "Z",
+      "cadence_class": "C1M",
+      "special_case": "none",
+      "source_min_utc": "2018-01-01T00:00:00+00:00",
+      "source_max_utc": "2024-01-01T00:00:00+00:00",
+      "grid_rows": 210337,
+      "occupied_bins": 210337,
+      "empty_bins": 0,
+      "occupied_rate": 1.0,
+      "median_gap_seconds": 60.0,
+      "sampling_rank": 46,
+      "first_cohort": "S60",
+      "cohort_membership": [
+        "S60",
+        "S79"
+      ],
+      "stratum_str": "H2.Z.C1M"
+    },
+    {
+      "meter_id": "H2.ZE67",
+      "building": "H2",
+      "category": "ZE",
+      "cadence_class": "C30S",
+      "special_case": "none",
+      "source_min_utc": "2022-03-22T14:54:45+00:00",
+      "source_max_utc": "2023-12-31T22:55:00.937999+00:00",
+      "grid_rows": 62337,
+      "occupied_bins": 58393,
+      "empty_bins": 3944,
+      "occupied_rate": 0.9367309944334825,
+      "median_gap_seconds": 32.0,
+      "sampling_rank": 47,
+      "first_cohort": "S60",
+      "cohort_membership": [
+        "S60",
+        "S79"
+      ],
+      "stratum_str": "H2.ZE.C30S"
+    },
+    {
+      "meter_id": "H3.Z44",
+      "building": "H3",
+      "category": "Z",
+      "cadence_class": "C1M",
+      "special_case": "none",
+      "source_min_utc": "2018-01-01T00:00:00+00:00",
+      "source_max_utc": "2024-01-01T00:00:00+00:00",
+      "grid_rows": 210337,
+      "occupied_bins": 210337,
+      "empty_bins": 0,
+      "occupied_rate": 1.0,
+      "median_gap_seconds": 60.0,
+      "sampling_rank": 48,
+      "first_cohort": "S60",
+      "cohort_membership": [
+        "S60",
+        "S79"
+      ],
+      "stratum_str": "H3.Z.C1M"
+    },
+    {
+      "meter_id": "H3.ZE44",
+      "building": "H3",
+      "category": "ZE",
+      "cadence_class": "C30S",
+      "special_case": "none",
+      "source_min_utc": "2022-03-18T09:24:53+00:00",
+      "source_max_utc": "2023-12-31T22:59:58.734999+00:00",
+      "grid_rows": 62743,
+      "occupied_bins": 59656,
+      "empty_bins": 3087,
+      "occupied_rate": 0.950799292351338,
+      "median_gap_seconds": 30.0,
+      "sampling_rank": 49,
+      "first_cohort": "S60",
+      "cohort_membership": [
+        "S60",
+        "S79"
+      ],
+      "stratum_str": "H3.ZE.C30S"
+    },
+    {
+      "meter_id": "H1.K16",
+      "building": "H1",
+      "category": "K",
+      "cadence_class": "C6M",
+      "special_case": "none",
+      "source_min_utc": "2018-11-26T10:06:00+00:00",
+      "source_max_utc": "2023-12-31T22:54:00+00:00",
+      "grid_rows": 178708,
+      "occupied_bins": 156607,
+      "empty_bins": 22101,
+      "occupied_rate": 0.8763289835933478,
+      "median_gap_seconds": 360.0,
+      "sampling_rank": 50,
+      "first_cohort": "S60",
+      "cohort_membership": [
+        "S60",
+        "S79"
+      ],
+      "stratum_str": "H1.K.C6M"
+    },
+    {
+      "meter_id": "H1.Z14",
+      "building": "H1",
+      "category": "Z",
+      "cadence_class": "C1M",
+      "special_case": "none",
+      "source_min_utc": "2018-01-01T00:00:00+00:00",
+      "source_max_utc": "2024-01-01T00:00:00+00:00",
+      "grid_rows": 210337,
+      "occupied_bins": 210337,
+      "empty_bins": 0,
+      "occupied_rate": 1.0,
+      "median_gap_seconds": 60.0,
+      "sampling_rank": 51,
+      "first_cohort": "S60",
+      "cohort_membership": [
+        "S60",
+        "S79"
+      ],
+      "stratum_str": "H1.Z.C1M"
+    },
+    {
+      "meter_id": "H1.Z29",
+      "building": "H1",
+      "category": "Z",
+      "cadence_class": "C30S",
+      "special_case": "none",
+      "source_min_utc": "2017-12-31T23:00:04+00:00",
+      "source_max_utc": "2023-12-31T22:59:59.630000+00:00",
+      "grid_rows": 210336,
+      "occupied_bins": 203456,
+      "empty_bins": 6880,
+      "occupied_rate": 0.9672904305492165,
+      "median_gap_seconds": 30.061,
+      "sampling_rank": 52,
+      "first_cohort": "S60",
+      "cohort_membership": [
+        "S60",
+        "S79"
+      ],
+      "stratum_str": "H1.Z.C30S"
+    },
+    {
+      "meter_id": "H2.T.Z34",
+      "building": "H2",
+      "category": "T.Z",
+      "cadence_class": "C1M",
+      "special_case": "none",
+      "source_min_utc": "2018-11-10T06:57:00+00:00",
+      "source_max_utc": "2023-12-31T22:42:00+00:00",
+      "grid_rows": 180256,
+      "occupied_bins": 180256,
+      "empty_bins": 0,
+      "occupied_rate": 1.0,
+      "median_gap_seconds": 60.0,
+      "sampling_rank": 53,
+      "first_cohort": "S60",
+      "cohort_membership": [
+        "S60",
+        "S79"
+      ],
+      "stratum_str": "H2.T.Z.C1M"
+    },
+    {
+      "meter_id": "H2.Z63",
+      "building": "H2",
+      "category": "Z",
+      "cadence_class": "C1M",
+      "special_case": "none",
+      "source_min_utc": "2018-01-01T00:00:00+00:00",
+      "source_max_utc": "2024-01-01T00:00:00+00:00",
+      "grid_rows": 210337,
+      "occupied_bins": 210337,
+      "empty_bins": 0,
+      "occupied_rate": 1.0,
+      "median_gap_seconds": 60.0,
+      "sampling_rank": 54,
+      "first_cohort": "S60",
+      "cohort_membership": [
+        "S60",
+        "S79"
+      ],
+      "stratum_str": "H2.Z.C1M"
+    },
+    {
+      "meter_id": "H2.ZE74",
+      "building": "H2",
+      "category": "ZE",
+      "cadence_class": "C30S",
+      "special_case": "none",
+      "source_min_utc": "2022-03-18T14:02:36+00:00",
+      "source_max_utc": "2023-12-31T22:59:52.916999+00:00",
+      "grid_rows": 62724,
+      "occupied_bins": 61857,
+      "empty_bins": 867,
+      "occupied_rate": 0.9861775396977234,
+      "median_gap_seconds": 30.0,
+      "sampling_rank": 55,
+      "first_cohort": "S60",
+      "cohort_membership": [
+        "S60",
+        "S79"
+      ],
+      "stratum_str": "H2.ZE.C30S"
+    },
+    {
+      "meter_id": "H3.Z45",
+      "building": "H3",
+      "category": "Z",
+      "cadence_class": "C1M",
+      "special_case": "none",
+      "source_min_utc": "2018-01-01T00:00:00+00:00",
+      "source_max_utc": "2024-01-01T00:00:00+00:00",
+      "grid_rows": 210337,
+      "occupied_bins": 210337,
+      "empty_bins": 0,
+      "occupied_rate": 1.0,
+      "median_gap_seconds": 60.0,
+      "sampling_rank": 56,
+      "first_cohort": "S60",
+      "cohort_membership": [
+        "S60",
+        "S79"
+      ],
+      "stratum_str": "H3.Z.C1M"
+    },
+    {
+      "meter_id": "H1.Z16",
+      "building": "H1",
+      "category": "Z",
+      "cadence_class": "C1M",
+      "special_case": "none",
+      "source_min_utc": "2018-01-01T00:00:00+00:00",
+      "source_max_utc": "2024-01-01T00:00:00+00:00",
+      "grid_rows": 210337,
+      "occupied_bins": 210337,
+      "empty_bins": 0,
+      "occupied_rate": 1.0,
+      "median_gap_seconds": 60.0,
+      "sampling_rank": 57,
+      "first_cohort": "S60",
+      "cohort_membership": [
+        "S60",
+        "S79"
+      ],
+      "stratum_str": "H1.Z.C1M"
+    },
+    {
+      "meter_id": "H1.Z310",
+      "building": "H1",
+      "category": "Z",
+      "cadence_class": "C30S",
+      "special_case": "none",
+      "source_min_utc": "2020-06-25T22:00:02+00:00",
+      "source_max_utc": "2023-12-31T15:14:48.118000+00:00",
+      "grid_rows": 123237,
+      "occupied_bins": 68355,
+      "empty_bins": 54882,
+      "occupied_rate": 0.554662966479223,
+      "median_gap_seconds": 30.0,
+      "sampling_rank": 58,
+      "first_cohort": "S60",
+      "cohort_membership": [
+        "S60",
+        "S79"
+      ],
+      "stratum_str": "H1.Z.C30S"
+    },
+    {
+      "meter_id": "H2.Z64",
+      "building": "H2",
+      "category": "Z",
+      "cadence_class": "C1M",
+      "special_case": "none",
+      "source_min_utc": "2018-01-01T00:00:00+00:00",
+      "source_max_utc": "2024-01-01T00:00:00+00:00",
+      "grid_rows": 210337,
+      "occupied_bins": 210337,
+      "empty_bins": 0,
+      "occupied_rate": 1.0,
+      "median_gap_seconds": 60.0,
+      "sampling_rank": 59,
+      "first_cohort": "S60",
+      "cohort_membership": [
+        "S60",
+        "S79"
+      ],
+      "stratum_str": "H2.Z.C1M"
+    },
+    {
+      "meter_id": "H3.Z46",
+      "building": "H3",
+      "category": "Z",
+      "cadence_class": "C1M",
+      "special_case": "none",
+      "source_min_utc": "2018-01-01T00:00:00+00:00",
+      "source_max_utc": "2024-01-01T00:00:00+00:00",
+      "grid_rows": 210337,
+      "occupied_bins": 210337,
+      "empty_bins": 0,
+      "occupied_rate": 1.0,
+      "median_gap_seconds": 60.0,
+      "sampling_rank": 60,
+      "first_cohort": "S60",
+      "cohort_membership": [
+        "S60",
+        "S79"
+      ],
+      "stratum_str": "H3.Z.C1M"
+    },
+    {
+      "meter_id": "H1.Z18",
+      "building": "H1",
+      "category": "Z",
+      "cadence_class": "C1M",
+      "special_case": "none",
+      "source_min_utc": "2018-01-01T00:00:00+00:00",
+      "source_max_utc": "2024-01-01T00:00:00+00:00",
+      "grid_rows": 210337,
+      "occupied_bins": 210337,
+      "empty_bins": 0,
+      "occupied_rate": 1.0,
+      "median_gap_seconds": 60.0,
+      "sampling_rank": 61,
+      "first_cohort": "S79",
+      "cohort_membership": [
+        "S79"
+      ],
+      "stratum_str": "H1.Z.C1M"
+    },
+    {
+      "meter_id": "H2.Z65",
+      "building": "H2",
+      "category": "Z",
+      "cadence_class": "C1M",
+      "special_case": "none",
+      "source_min_utc": "2018-01-01T00:00:00+00:00",
+      "source_max_utc": "2024-01-01T00:00:00+00:00",
+      "grid_rows": 210337,
+      "occupied_bins": 210337,
+      "empty_bins": 0,
+      "occupied_rate": 1.0,
+      "median_gap_seconds": 60.0,
+      "sampling_rank": 62,
+      "first_cohort": "S79",
+      "cohort_membership": [
+        "S79"
+      ],
+      "stratum_str": "H2.Z.C1M"
+    },
+    {
+      "meter_id": "H3.Z47",
+      "building": "H3",
+      "category": "Z",
+      "cadence_class": "C1M",
+      "special_case": "none",
+      "source_min_utc": "2018-01-01T00:00:00+00:00",
+      "source_max_utc": "2024-01-01T00:00:00+00:00",
+      "grid_rows": 210337,
+      "occupied_bins": 210337,
+      "empty_bins": 0,
+      "occupied_rate": 1.0,
+      "median_gap_seconds": 60.0,
+      "sampling_rank": 63,
+      "first_cohort": "S79",
+      "cohort_membership": [
+        "S79"
+      ],
+      "stratum_str": "H3.Z.C1M"
+    },
+    {
+      "meter_id": "H1.Z19",
+      "building": "H1",
+      "category": "Z",
+      "cadence_class": "C1M",
+      "special_case": "none",
+      "source_min_utc": "2018-01-01T00:00:00+00:00",
+      "source_max_utc": "2024-01-01T00:00:00+00:00",
+      "grid_rows": 210337,
+      "occupied_bins": 210337,
+      "empty_bins": 0,
+      "occupied_rate": 1.0,
+      "median_gap_seconds": 60.0,
+      "sampling_rank": 64,
+      "first_cohort": "S79",
+      "cohort_membership": [
+        "S79"
+      ],
+      "stratum_str": "H1.Z.C1M"
+    },
+    {
+      "meter_id": "H2.Z66",
+      "building": "H2",
+      "category": "Z",
+      "cadence_class": "C1M",
+      "special_case": "none",
+      "source_min_utc": "2018-01-01T00:00:00+00:00",
+      "source_max_utc": "2024-01-01T00:00:00+00:00",
+      "grid_rows": 210337,
+      "occupied_bins": 210337,
+      "empty_bins": 0,
+      "occupied_rate": 1.0,
+      "median_gap_seconds": 60.0,
+      "sampling_rank": 65,
+      "first_cohort": "S79",
+      "cohort_membership": [
+        "S79"
+      ],
+      "stratum_str": "H2.Z.C1M"
+    },
+    {
+      "meter_id": "H3.Z48",
+      "building": "H3",
+      "category": "Z",
+      "cadence_class": "C1M",
+      "special_case": "none",
+      "source_min_utc": "2018-01-01T00:00:00+00:00",
+      "source_max_utc": "2024-01-01T00:00:00+00:00",
+      "grid_rows": 210337,
+      "occupied_bins": 210337,
+      "empty_bins": 0,
+      "occupied_rate": 1.0,
+      "median_gap_seconds": 60.0,
+      "sampling_rank": 66,
+      "first_cohort": "S79",
+      "cohort_membership": [
+        "S79"
+      ],
+      "stratum_str": "H3.Z.C1M"
+    },
+    {
+      "meter_id": "H1.Z20",
+      "building": "H1",
+      "category": "Z",
+      "cadence_class": "C1M",
+      "special_case": "none",
+      "source_min_utc": "2018-01-01T00:00:00+00:00",
+      "source_max_utc": "2024-01-01T00:00:00+00:00",
+      "grid_rows": 210337,
+      "occupied_bins": 210337,
+      "empty_bins": 0,
+      "occupied_rate": 1.0,
+      "median_gap_seconds": 60.0,
+      "sampling_rank": 67,
+      "first_cohort": "S79",
+      "cohort_membership": [
+        "S79"
+      ],
+      "stratum_str": "H1.Z.C1M"
+    },
+    {
+      "meter_id": "H2.Z67",
+      "building": "H2",
+      "category": "Z",
+      "cadence_class": "C1M",
+      "special_case": "none",
+      "source_min_utc": "2018-01-01T00:00:00+00:00",
+      "source_max_utc": "2024-01-01T00:00:00+00:00",
+      "grid_rows": 210337,
+      "occupied_bins": 210337,
+      "empty_bins": 0,
+      "occupied_rate": 1.0,
+      "median_gap_seconds": 60.0,
+      "sampling_rank": 68,
+      "first_cohort": "S79",
+      "cohort_membership": [
+        "S79"
+      ],
+      "stratum_str": "H2.Z.C1M"
+    },
+    {
+      "meter_id": "H3.Z49",
+      "building": "H3",
+      "category": "Z",
+      "cadence_class": "C1M",
+      "special_case": "none",
+      "source_min_utc": "2018-01-01T00:00:00+00:00",
+      "source_max_utc": "2024-01-01T00:00:00+00:00",
+      "grid_rows": 210337,
+      "occupied_bins": 210337,
+      "empty_bins": 0,
+      "occupied_rate": 1.0,
+      "median_gap_seconds": 60.0,
+      "sampling_rank": 69,
+      "first_cohort": "S79",
+      "cohort_membership": [
+        "S79"
+      ],
+      "stratum_str": "H3.Z.C1M"
+    },
+    {
+      "meter_id": "H1.Z21",
+      "building": "H1",
+      "category": "Z",
+      "cadence_class": "C1M",
+      "special_case": "none",
+      "source_min_utc": "2018-01-01T00:00:00+00:00",
+      "source_max_utc": "2024-01-01T00:00:00+00:00",
+      "grid_rows": 210337,
+      "occupied_bins": 210337,
+      "empty_bins": 0,
+      "occupied_rate": 1.0,
+      "median_gap_seconds": 60.0,
+      "sampling_rank": 70,
+      "first_cohort": "S79",
+      "cohort_membership": [
+        "S79"
+      ],
+      "stratum_str": "H1.Z.C1M"
+    },
+    {
+      "meter_id": "H2.Z68",
+      "building": "H2",
+      "category": "Z",
+      "cadence_class": "C1M",
+      "special_case": "none",
+      "source_min_utc": "2018-01-01T00:00:00+00:00",
+      "source_max_utc": "2024-01-01T00:00:00+00:00",
+      "grid_rows": 210337,
+      "occupied_bins": 210337,
+      "empty_bins": 0,
+      "occupied_rate": 1.0,
+      "median_gap_seconds": 60.0,
+      "sampling_rank": 71,
+      "first_cohort": "S79",
+      "cohort_membership": [
+        "S79"
+      ],
+      "stratum_str": "H2.Z.C1M"
+    },
+    {
+      "meter_id": "H3.Z71",
+      "building": "H3",
+      "category": "Z",
+      "cadence_class": "C1M",
+      "special_case": "none",
+      "source_min_utc": "2018-01-01T00:00:00+00:00",
+      "source_max_utc": "2024-01-01T00:00:00+00:00",
+      "grid_rows": 210337,
+      "occupied_bins": 210337,
+      "empty_bins": 0,
+      "occupied_rate": 1.0,
+      "median_gap_seconds": 60.0,
+      "sampling_rank": 72,
+      "first_cohort": "S79",
+      "cohort_membership": [
+        "S79"
+      ],
+      "stratum_str": "H3.Z.C1M"
+    },
+    {
+      "meter_id": "H1.Z22",
+      "building": "H1",
+      "category": "Z",
+      "cadence_class": "C1M",
+      "special_case": "none",
+      "source_min_utc": "2018-01-01T00:00:00+00:00",
+      "source_max_utc": "2024-01-01T00:00:00+00:00",
+      "grid_rows": 210337,
+      "occupied_bins": 210337,
+      "empty_bins": 0,
+      "occupied_rate": 1.0,
+      "median_gap_seconds": 60.0,
+      "sampling_rank": 73,
+      "first_cohort": "S79",
+      "cohort_membership": [
+        "S79"
+      ],
+      "stratum_str": "H1.Z.C1M"
+    },
+    {
+      "meter_id": "H2.Z69",
+      "building": "H2",
+      "category": "Z",
+      "cadence_class": "C1M",
+      "special_case": "none",
+      "source_min_utc": "2018-01-01T00:00:00+00:00",
+      "source_max_utc": "2024-01-01T00:00:00+00:00",
+      "grid_rows": 210337,
+      "occupied_bins": 210337,
+      "empty_bins": 0,
+      "occupied_rate": 1.0,
+      "median_gap_seconds": 60.0,
+      "sampling_rank": 74,
+      "first_cohort": "S79",
+      "cohort_membership": [
+        "S79"
+      ],
+      "stratum_str": "H2.Z.C1M"
+    },
+    {
+      "meter_id": "H1.Z23",
+      "building": "H1",
+      "category": "Z",
+      "cadence_class": "C1M",
+      "special_case": "none",
+      "source_min_utc": "2018-01-22T16:57:00+00:00",
+      "source_max_utc": "2023-12-31T22:42:00+00:00",
+      "grid_rows": 208248,
+      "occupied_bins": 208248,
+      "empty_bins": 0,
+      "occupied_rate": 1.0,
+      "median_gap_seconds": 60.0,
+      "sampling_rank": 75,
+      "first_cohort": "S79",
+      "cohort_membership": [
+        "S79"
+      ],
+      "stratum_str": "H1.Z.C1M"
+    },
+    {
+      "meter_id": "H2.Z70",
+      "building": "H2",
+      "category": "Z",
+      "cadence_class": "C1M",
+      "special_case": "none",
+      "source_min_utc": "2018-01-01T00:00:00+00:00",
+      "source_max_utc": "2024-01-01T00:00:00+00:00",
+      "grid_rows": 210337,
+      "occupied_bins": 210337,
+      "empty_bins": 0,
+      "occupied_rate": 1.0,
+      "median_gap_seconds": 60.0,
+      "sampling_rank": 76,
+      "first_cohort": "S79",
+      "cohort_membership": [
+        "S79"
+      ],
+      "stratum_str": "H2.Z.C1M"
+    },
+    {
+      "meter_id": "H1.Z24",
+      "building": "H1",
+      "category": "Z",
+      "cadence_class": "C1M",
+      "special_case": "none",
+      "source_min_utc": "2018-01-22T16:57:00+00:00",
+      "source_max_utc": "2023-12-31T22:42:00+00:00",
+      "grid_rows": 208248,
+      "occupied_bins": 208248,
+      "empty_bins": 0,
+      "occupied_rate": 1.0,
+      "median_gap_seconds": 60.0,
+      "sampling_rank": 77,
+      "first_cohort": "S79",
+      "cohort_membership": [
+        "S79"
+      ],
+      "stratum_str": "H1.Z.C1M"
+    },
+    {
+      "meter_id": "H1.Z25",
+      "building": "H1",
+      "category": "Z",
+      "cadence_class": "C1M",
+      "special_case": "none",
+      "source_min_utc": "2018-01-22T16:57:00+00:00",
+      "source_max_utc": "2023-12-31T22:42:00+00:00",
+      "grid_rows": 208248,
+      "occupied_bins": 208248,
+      "empty_bins": 0,
+      "occupied_rate": 1.0,
+      "median_gap_seconds": 60.0,
+      "sampling_rank": 78,
+      "first_cohort": "S79",
+      "cohort_membership": [
+        "S79"
+      ],
+      "stratum_str": "H1.Z.C1M"
+    },
+    {
+      "meter_id": "H1.Z27",
+      "building": "H1",
+      "category": "Z",
+      "cadence_class": "C1M",
+      "special_case": "none",
+      "source_min_utc": "2017-12-31T23:00:07+00:00",
+      "source_max_utc": "2023-12-31T22:58:31.015000+00:00",
+      "grid_rows": 210336,
+      "occupied_bins": 204442,
+      "empty_bins": 5894,
+      "occupied_rate": 0.9719781682641108,
+      "median_gap_seconds": 60.0,
+      "sampling_rank": 79,
+      "first_cohort": "S79",
+      "cohort_membership": [
+        "S79"
+      ],
+      "stratum_str": "H1.Z.C1M"
+    }
+  ]
+}

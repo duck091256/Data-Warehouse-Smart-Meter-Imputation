@@ -1,0 +1,106 @@
+# Task State Machine for Beyond Synthetic Missingness
+# Allowed states:
+#   - BLOCKED
+#   - READY
+#   - IN_PROGRESS
+#   - TEST_FAILED
+#   - TEST_PASSED
+#   - AUDIT_FAILED
+#   - AUDIT_PASSED
+#   - GATED
+
+protocol_version: "v1.1"
+
+current_stage: "P1"
+current_task: "P1-T3"
+
+tasks:
+  CONTROL_LAYER:
+    status: "GATED"
+    test: "PASSED"
+    audit: "NOT_REQUIRED"
+
+  P1-T1:
+    status: "GATED"
+    test: "PASSED"
+    audit: "NOT_REQUIRED"
+
+  P1-T2:
+    status: "GATED"
+    test: "PASSED"
+    audit: "NOT_REQUIRED"
+
+  P1-T3:
+    status: "GATED"
+    test: "PASSED"
+    audit: "PASSED"
+
+  P1-T4:
+    status: "BLOCKED"
+    test: "NOT_RUN"
+    audit: "NOT_REQUIRED"
+
+  P1-T5:
+    status: "BLOCKED"
+    test: "NOT_RUN"
+    audit: "NOT_REQUIRED"
+
+  P1-T6:
+    status: "BLOCKED"
+    test: "NOT_RUN"
+    audit: "NOT_REQUIRED"
+
+  P1-T7:
+    status: "BLOCKED"
+    test: "NOT_RUN"
+    audit: "NOT_REQUIRED"
+
+  P1-T8:
+    status: "BLOCKED"
+    test: "NOT_RUN"
+    audit: "NOT_REQUIRED"
+
+  P2-T1:
+    status: "BLOCKED"
+    test: "NOT_RUN"
+    audit: "NOT_REQUIRED"
+
+  P2-T2:
+    status: "BLOCKED"
+    test: "NOT_RUN"
+    audit: "NOT_REQUIRED"
+
+  P2-T3:
+    status: "BLOCKED"
+    test: "NOT_RUN"
+    audit: "NOT_REQUIRED"
+
+  P2-T4:
+    status: "BLOCKED"
+    test: "NOT_RUN"
+    audit: "NOT_REQUIRED"
+
+  P2-T5a:
+    status: "BLOCKED"
+    test: "NOT_RUN"
+    audit: "NOT_REQUIRED"
+
+  P2-T5b:
+    status: "BLOCKED"
+    test: "NOT_RUN"
+    audit: "NOT_REQUIRED"
+
+  P2-T6:
+    status: "BLOCKED"
+    test: "NOT_RUN"
+    audit: "NOT_REQUIRED"
+
+  P2-T7:
+    status: "BLOCKED"
+    test: "NOT_RUN"
+    audit: "NOT_REQUIRED"
+
+  P2-T8:
+    status: "BLOCKED"
+    test: "NOT_RUN"
+    audit: "NOT_REQUIRED"

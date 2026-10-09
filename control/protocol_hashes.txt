@@ -1,0 +1,5 @@
+# Protocol Hash Manifest — Auto-generated
+# Generated at: 2026-10-07 18:13:41Z
+4ee91e66cab2e9d6e93977a3e5685e849674a11e879bdd9f690afbc7d6fdc7bb  control/protected_paths.txt
+e58c202e76a27098f37250e64579faa33c8c393fbf60730b0d7aa97edf74a332  RESEARCH_PLAN.md
+275bd3bfbe0d6e558857a4fa95181475e843fbcc52efbfc1f2dd560392725059  TASK_PLAN.md

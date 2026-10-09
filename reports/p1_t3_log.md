@@ -1,0 +1,25 @@
+# Task Log: [P1-T3] — Biểu diễn lưới đều 15 phút (15-Minute Regular Grid)
+
+- **Thời gian hoàn thành**: 2026-10-06T18:11:39.878987+00:00
+- **Mã commit / Git SHA**: `uncommitted`
+- **Config & Seed**: `seed=42`, `config=/home/duck/Downloads/Vice - Download/StudyWithVKU/StudyWithVKU/ThirdYear/data-warehousing/configs/local.yaml`, `config_hash=d2d17337de0d0b2e0fe36b4430c5a34b063549ccb2dc78203ecb9bef2d8b843a`
+- **Công việc đã thực hiện**:
+  - Thiết kế và hoàn thiện pipeline chuẩn hóa lưới 15 phút `etl/resample_15min.py`:
+    - **Định nghĩa Bin nửa đóng bên phải**: $Bin(t) = (t - 15\text{m}, t]$ với nhãn thời gian là cận phải.
+    - **Biên lưới theo từng meter**: `grid_start = ceil_to_15min(min(t))` và `grid_end = ceil_to_15min(max(t))`, tuyệt đối không dùng floor.
+    - **Toán tử đại diện `LAST`**: Trích xuất bản ghi P1-T2 cuối cùng trong mỗi bin occupied, bảo toàn nguyên vẹn giá trị đo và thông tin nguồn gốc.
+    - **Bảo toàn Occupied Bins**: 100% occupied bins tạo đúng 1 giá trị non-null; mọi empty bin có `value = NaN` và các trường nguồn gốc là `NULL`.
+    - **Độ đầy đủ của bin (`bin_completeness`)**: Được tính theo nhịp `median_gap_seconds` với công thức bin biên riêng biệt.
+    - **Tối ưu hóa bộ nhớ**: Xử lý streaming từng meter qua PyArrow ParquetWriter, kiểm soát RAM dưới 300 MB trên toàn bộ 208 triệu dòng nguồn.
+- **Số liệu chính & Đo lường**:
+  - Tổng số meter hợp lệ: **79 meters**.
+  - Tổng số dòng nguồn (readings_utc.parquet): **208,224,479 dòng**.
+  - Tổng số dòng lưới đầu ra (readings_15min.parquet): **13,981,597 dòng**.
+  - Tổng số occupied bins: **13,333,577**.
+  - Tổng số empty bins: **648,020** (4.63%).
+  - Kích thước tệp Parquet đầu ra: **394,072,801 bytes** (375.82 MB).
+  - SHA-256 tệp Parquet đầu ra: `f50a2ff27b142a895a8cabfbc0bcf3750aad28d5dcd5af2cb51a13628dce22dd`.
+  - Phân bổ Cadence Class: `C15S`: 1, `C30S`: 25, `C1M`: 44, `C2M`: 1, `C6M`: 8.
+- **Rủi ro & Điểm chưa chắc chắn**:
+  - Các ô rỗng (empty bins) chiếm 4.63% là khoảng trống quan sát (observation gaps), không được tự ý coi là sự cố thiết bị cho tới khi P1-T4/P2 đối chiếu issue logs.
+  - Chú ý ràng buộc chống rò rỉ: các trường `raw_record_count`, `expected_record_count`, `bin_completeness` tuyệt đối không được đưa vào feature đầu vào cho mô hình imputation.

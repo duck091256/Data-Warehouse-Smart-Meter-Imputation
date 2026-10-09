@@ -1,0 +1,18 @@
+# ==============================================================================
+# configs/local.yaml.example — Example Local Configuration
+# ==============================================================================
+# Copy this file to configs/local.yaml and set your external dataset path.
+# configs/local.yaml is ignored by git and will never be committed.
+# ==============================================================================
+
+protocol_version: "v1"
+
+data:
+  # Path to external Honda Smart-Meter dataset directory (spaces supported)
+  raw_dir: "/path/to/Honda_Dataset"
+  interim_dir: "data/interim"
+  processed_dir: "data/processed"
+
+experiment:
+  seed: 42
+  timezone: "UTC"

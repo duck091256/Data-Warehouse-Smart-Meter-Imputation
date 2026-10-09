@@ -1,0 +1,51 @@
+# Task Log: [P1-T2] — Chuẩn hóa múi giờ và DST (Timezone & DST Standardization) [RECONCILED]
+
+- **Thời gian hoàn thành ban đầu**: 2026-10-05 13:25:00 UTC (20:25:00 local)
+- **Thời gian Evidence Repair & Reconciliation**: 2026-10-06 00:05:00 local
+- **Mã commit / Git SHA**: `uncommitted_initial`
+- **Config & Seed**: `seed=42`, `config=configs/local.yaml`, `config_hash=a298dab9675994a2439a10b8ec9267ab5b8659e1d5e2833b9a59a330ba2d2fc9`
+- **Công việc đã thực hiện & Đối soát (Reconciled)**:
+  - Thiết kế và hoàn thiện pipeline chuẩn hóa múi giờ và DST chuẩn `etl/normalize_utc.py`:
+    - **Ngữ nghĩa timestamp thô (Raw UTC Semantics)**: File raw thô đã chứa canonical timestamp theo chuẩn UTC (`datetime_utc` với `+00:00` hoặc `Z`). Pipeline đọc canonical UTC sang `timestamp_utc` kiểu `timestamp[us, tz=UTC]`.
+    - **Tái tạo giờ địa phương (Local Time Reconstruction)**: Tái tạo giờ mặt đồng hồ địa phương Đức (`Europe/Berlin`) sang `timestamp_local` (`timestamp[us]`), độ lệch UTC `utc_offset_hours` (`int16`, +1 cho CET và +2 cho CEST), cờ Daylight Saving Time `is_dst` (`bool`), giá trị đo `value` (`double`), và đường dẫn nguồn `raw_source_file` (`string`).
+    - **Xử lý chuyển đổi mùa xuân (Spring DST transition)**: chuyển từ CET (+1) sang CEST (+2) lúc 01:00 UTC, giờ địa phương nhảy từ 01:59 lên 03:00, trục thời gian UTC hoàn toàn liên tục và không xuất hiện khoảng trống (no UTC gap).
+    - **Xử lý chuyển đổi mùa thu (Fall DST transition)**: chuyển từ CEST (+2) sang CET (+1) lúc 01:00 UTC, giờ địa phương lặp lại dải 02:00-02:59 được phân định đơn trị nhờ `utc_offset_hours` và `is_dst`, trục thời gian UTC hoàn toàn đơn điệu và không bị trùng lặp (no UTC duplicate).
+    - **Kiểm tra DST trên toàn bộ 79 meters**: Đã kiểm tra độc lập 100% các đồng hồ hoạt động qua toàn bộ 12 đợt chuyển đổi DST (Spring/Fall 2018–2023) với 175,060 dòng xung quanh biên chuyển đổi: 0 lỗi.
+    - **Kiểm soát bất biến**: chặn tuyệt đối 21 file `_corrected_raw` (ném ngoại lệ `ValueError`), xử lý an toàn 3 file rỗng từ kiểm kê P1-T1 (trả về schema chuẩn với 0 dòng, không tạo bản ghi giả).
+    - **Xử lý duplicate tại `V.Z84.W_raw.csv.gz`**: Kiểm tra trực tiếp ghi nhận 55,109 mốc timestamp lặp (48,428 cặp và 6,681 bộ ba). Áp dụng chiến lược `keep_last` loại bỏ đúng 61,790 dòng thừa, giữ lại giá trị thanh ghi chuẩn đã hiệu chuẩn ở cuối chu kỳ đọc.
+    - **Đặc tính biến thiên của W**: Không giả định $W$ đơn điệu tăng. $W$ là Net Active Energy Saldo và có 169,365 bước giảm tự nhiên do nhận điện từ lưới; các bước giảm này được bảo toàn nguyên vẹn 100%, không bị debounce.
+    - **Phạm vi Target Variable**: Khóa duy nhất toàn trạm là `(meter_id, variable, timestamp_utc)`. Pipeline chỉ nạp biến mục tiêu $W$ theo cấu hình `etl.target_variable = "W"`. Biến $P$ là trường auxiliary/future extension và chưa được ETL trong P1-T2.
+    - **Tối ưu hóa bộ nhớ**: streaming dữ liệu batch-by-batch theo từng meter qua PyArrow `ParquetWriter`, duy trì mức chiếm dụng RAM dưới 200 MB trong suốt quá trình xử lý 208 triệu bản ghi.
+    - **Xuất bản tệp dữ liệu trung gian chuẩn hóa**: `data/interim/readings_utc.parquet` (3.5 GB) và tệp truy xuất nguồn gốc `data/interim/readings_utc_metadata.json`.
+    - **Xây dựng bộ kiểm thử tự động toàn diện**: `tests/test_P1_T2.py` với 12 test cases độc lập kiểm định chặt chẽ toàn bộ các tiêu chí nghiệm thu định lượng của protocol.
+- **Số liệu chính & Đo lường (Reconciliation Summary)**:
+  - Tổng số file raw thô toàn dataset: 9,740 files.
+  - Tổng số file raw thô authoritative: 1,603 files (loại 21 `_corrected_raw` và 2 file backup).
+  - Tổng số dòng raw thô trên 1,603 files (40 biến): **3,952,487,105 dòng**.
+  - Dòng thuộc 39 biến non-W (1,523 files): **3,744,200,836 dòng**.
+  - Biến mục tiêu chuẩn hóa P1-T2: `W` (Active Energy, kWh).
+  - Số file biến mục tiêu W: **80 files**.
+  - Tổng số dòng đọc vào từ raw của biến W: **208,286,269 dòng**.
+  - Tổng số dòng duplicate đã loại bỏ: **61,790 dòng** (toàn bộ tại `V.Z84.W_raw.csv.gz`).
+  - Tổng số dòng chuẩn hóa xuất ra trong Parquet: **208,224,479 dòng** (khớp chính xác 100%: 208,286,269 - 61,790 = 208,224,479).
+  - Tổng số meter quét: 81 meters.
+  - Số meter có file W: 80 meters.
+  - `excluded_meters_no_target_file`: `["WeatherStation.Weather"]` (trạm thời tiết không có kênh điện năng).
+  - `excluded_meters_empty_file`: `["H3.Z42"]` (file rỗng 0 dòng).
+  - Số meter có dữ liệu trong Parquet: **79 meters**.
+  - Kích thước tệp Parquet xuất ra: 3,662,760,196 bytes (~3.5 GB).
+  - SHA-256 tệp Parquet: `5983397375f03a5f0fd3cdab29c4ea561e3b68e13547aeca294f5ed8a2139b13`.
+  - Tỷ lệ dữ liệu ngoại suy / nội suy nhân tạo: 0.0000% (không nội suy, không sinh quan sát ảo).
+  - Dữ liệu thô `data/raw`: Giữ nguyên vẹn 100% tính read-only.
+  - Kết quả kiểm thử P1-T2 (`pytest tests/test_P1_T2.py`): 12 passed, 0 failed.
+  - Kết quả kiểm thử hồi quy P1-T1 (`pytest tests/test_P1_T1.py`): 8 passed, 0 failed.
+  - Kết quả kiểm thử Control-Layer (`pytest tests/test_control_layer.py`): 7 passed, 0 failed.
+  - Kết quả Control Gate (`bash control/gate.sh`): `RESULT: GATE = PASS`.
+- **Rủi ro & Điểm chưa chắc chắn (Uncertainties)**:
+  - Hiện tượng 1,844 mốc mismatch ($W_{\text{out}} - W_{\text{in}} - W \ne 0$) sau sự cố ngày 15/05/2023 tại `V.Z84` được phân loại chính thức là **UNRESOLVED** do thiếu log chẩn đoán nội bộ firmware; không dùng để suy diễn làm sai lệch dữ liệu thô.
+  - Đồng hồ `H3.Z42` không có dữ liệu cho `W` (file rỗng 0 bytes data); các task P1-T3/P1-T4 cần xử lý an toàn khi tổng hợp phụ tải.
+  - Biến công suất tác dụng $P$ chưa được ETL; nếu warehouse cần $P$ thì cần bổ sung task riêng.
+- **Trạng thái cập nhật**:
+  - `P1-T1`: `GATED`
+  - `P1-T2`: `TEST_PASSED` (12/12 unit tests PASS, gate PASS, sẵn sàng kiểm định lại).
+

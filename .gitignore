@@ -1,0 +1,82 @@
+# ==============================================================================
+# .gitignore — Beyond Synthetic Missingness Repository
+# ==============================================================================
+
+# Machine-specific local configurations (contains physical volume paths)
+configs/local.yaml
+configs/*_local.yaml
+configs/*.local.yaml
+
+# Python cache & bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Test & coverage artifacts
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Virtual environments
+.venv/
+env/
+venv/
+ENV/
+
+# Intermediate and processed research artifacts
+data/interim/*
+!data/interim/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+
+# OS / Editor temporary files
+.DS_Store
+Thumbs.db
+*.swp
+*~
+.idea/
+.vscode/
+
+# Local virtual environments
+.venv/
+venv/
+ENV/
+
+# Secrets and local environment files
+.env
+.env.*
+!.env.example
+
+# Raw research dataset: never commit
+data/raw/**
+!data/raw/.gitkeep
+
+# All generated intermediate/processed artifacts
+data/interim/**
+!data/interim/.gitkeep
+data/processed/**
+!data/processed/.gitkeep
+
+# Local databases and generated model artifacts
+*.duckdb
+*.duckdb.wal
+*.sqlite
+*.sqlite3
+*.db
+*.parquet
+*.joblib
+*.pkl
+*.pt
+*.pth
+
+# Common generated output
+outputs/
+checkpoints/
+cache/
+
+# Local backup files
+.gitignore.backup
+
+# Local course documents (not part of the research repository)
+documents/

@@ -1,0 +1,30 @@
+# Task Log: [P1-T1] — Kiểm kê dữ liệu thô (Raw Dataset Inventory)
+
+- **Thời gian hoàn thành**: 2026-10-05 05:22:00 UTC
+- **Mã commit / Git SHA**: `uncommitted_initial`
+- **Config & Seed**: `seed=42`, `config=configs/local.yaml`, `config_hash=fbac05a93c064d1a191ad8a262aa23051ab8c1c0cd986f775084553f68a4337d`
+- **Công việc đã thực hiện**:
+  - Thiết kế và hoàn thiện module kiểm kê `etl/inventory.py`: cơ chế streaming chunk binary qua `gzip` + `csv`, tối ưu hóa phân tích chuỗi thời gian, thống kê NaN, timestamp duplicates, out-of-order và kiểm định tính toàn vẹn 100% không corrupt.
+  - Sửa lỗi phương pháp luận ước lượng tần suất (frequency estimation): thay thế window 35 dòng đầu (vốn bị ảnh hưởng nặng bởi độ trễ khởi động/commissioning cold-start) bằng window 1,000 dòng kết hợp `statistics.median`, phân loại chính xác 81 meters (61 meters 1min, 18 meters 30s, 1 meter 2min, 1 meter 15s).
+  - Xuất bản dữ liệu kiểm kê cấp độ meter tại `data/interim/inventory.csv` (81 meters đầy đủ 9 trường thông tin bắt buộc).
+  - Xuất bản dữ liệu kiểm kê cấp độ file tại `data/interim/inventory_by_file.csv` (1,603 files đo lường chính thức).
+  - Ghi nhận run provenance tại `data/interim/inventory_metadata.json` (seed, commit, data_version, config_hash, timestamp, summary).
+  - Soạn thảo báo cáo kiểm kê khoa học toàn diện tại `reports/p1_inventory.md`.
+  - Nâng cấp test suite `tests/test_P1_T1.py` với kiểm định thực thi tính deterministic (chạy lại 2 lần kiểm tra bit-for-bit), kiểm định tính nhất quán tần suất quan sát, và kiểm tra tính toàn vẹn dữ liệu thô.
+- **Số liệu chính & Đo lường**:
+  - Tổng số meter phát hiện: 81 / 81 (100%).
+  - Tổng số file đo lường thô chính thức: 1,603 files.
+  - Tổng số dòng quan sát (readings): 3,952,487,105 dòng.
+  - Khoảng thời gian: 2017-12-30T23:00:08Z đến 2024-01-01T00:00:00Z (~6 năm).
+  - Số file đọc được: 1,603 / 1,603 (100% không corrupt).
+  - Tỷ lệ NaN rõ ràng: 0.0000% (missingness trong smart-meter xuất hiện dưới dạng time gaps).
+  - Dòng lặp timestamp (duplicates): 286,446 dòng (tập trung tại `V.Z84.W_in`, `V.Z84.W_out`, `V.Z84.W`).
+  - Dòng sai thứ tự (out-of-order): 0 dòng (100% file tăng dần đơn điệu).
+  - File rỗng (0 dòng data): 3 files (`H2.T.Z33.WQ`, `H3.Z41.WQ`, `H3.Z42.W`).
+  - Kết quả kiểm thử tự động: 23 passed, 0 failed (`pytest`).
+  - Control Gate: `GATE = PASS`.
+- **Rủi ro & Điểm chưa chắc chắn (Uncertainties)**:
+  - 3 file rỗng cần được xử lý an toàn tại P1-T2/P1-T3 (bỏ qua khi merge mà không làm sập pipeline).
+  - 286,446 bản ghi duplicate timestamp tại `V.Z84` cần deduplication trước khi reindex tại P1-T2/P1-T3.
+  - 21 file `_corrected_raw.csv.gz` trong `V.ZE84` phản ánh việc sửa đảo cực CT tại nguồn; tuân thủ protocol không dùng làm ground truth.
+- **Trạng thái đề xuất**: `TEST_PASSED` (Sẵn sàng cho Auditor độc lập kiểm toán).

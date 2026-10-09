@@ -1,0 +1,11 @@
+# Protected paths list for Research Governance
+# Any modification to paths listed below by research executors is forbidden.
+# Lines starting with # are comments. Empty lines are ignored.
+# Paths ending with / are treated as directories (prefix match).
+# Other paths are matched as exact file relative paths.
+
+TASK_PLAN.md
+RESEARCH_PLAN.md
+data/raw/
+tests/
+control/

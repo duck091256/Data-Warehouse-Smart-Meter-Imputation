@@ -1,0 +1,134 @@
+# ==============================================================================
+# configs/default.yaml — Default Pipeline Configuration Template
+# ==============================================================================
+# Base configuration for Beyond Synthetic Missingness research pipeline.
+# To override for your local machine, specify an external path in configs/local.yaml
+# or pass --config <path_to_config.yaml> to scripts.
+# ==============================================================================
+
+protocol_version: "v1.1"
+
+experiment:
+  seed: 42
+  timezone: "UTC"
+  target_resolution: "15min"
+
+data:
+  # Default repository-relative raw data location (read-only)
+  # Override in configs/local.yaml if raw dataset is stored on external storage
+  raw_dir: "data/raw"
+  interim_dir: "data/interim"
+  processed_dir: "data/processed"
+
+warehouse:
+  db_path: "warehouse.duckdb"
+
+models:
+  baselines:
+    - "linear"
+    - "seasonal_naive"
+    - "knn"
+    - "xgb"
+
+etl:
+  target_variable: "W"
+  local_timezone: "Europe/Berlin"
+  grid:
+    resolution_minutes: 15
+    bin_partition: "right_closed"  # Bin(t) = (t - 15min, t]
+    grid_anchors: ["00:00", "15:00", "30:00", "45:00"]
+    grid_start_rule: "ceil_to_15min"
+    grid_end_rule: "ceil_to_15min"  # Never floor max_timestamp
+    representative_operator: "LAST"
+    empty_bin_value: "NaN"
+    occupied_bin_preservation: true
+    zero_synthetic_observations: true
+    bin_completeness_definition:
+      estimated_cadence: "median_gap_seconds"
+      expected_record_count_full_bin: "max(1, round(900 / estimated_cadence_seconds))"
+      expected_record_count_boundary_bin: "max(1, round(covered_duration_seconds / estimated_cadence_seconds))"
+      bin_completeness_formula: "min(1.0, observed_count / expected_record_count_bin)"
+      role: "descriptive metadata only; never used to create values, alter NaN, or decide imputation"
+  deduplication:
+    strategy: "keep_last"
+    rationale: "V.Z84 within-file duplicate timestamps arose from post-outage logger reconnection on 2023-05-15. For identical twin packets, keeping one is idempotent. For pairs/triplets with different values, the last record corresponds to the calibrated standard 1-decimal register value (discarding dirty floating uncalibrated offsets), preserving downstream chronological consistency and calibrated register readings (noting that W is net active energy and may naturally decrease when power flows from the grid, which is preserved without debouncing)."
+  corrected_raw_policy:
+    exclude: true
+    rationale: "21 _corrected_raw files in V.ZE84 reflect inverted CT sensor corrections made at the source. Per AGENTS.md invariant, corrected data must never be used as authoritative raw ground truth."
+  empty_files_policy:
+    skip_cleanly: true
+    known_empty_files:
+      - "H2.T.Z33.WQ_raw.csv.gz"
+      - "H3.Z41.WQ_raw.csv.gz"
+      - "H3.Z42.W_raw.csv.gz"
+    rationale: "Empty files contain 0 data rows (header only). They are safely handled without creating fake observations or crashing."
+  issue_overlap:
+    semantics: "non_empty_intersection"  # Bin(t) ∩ I != ∅ <=> (s <= t) AND (e > t - 15min)
+    left_boundary_open: true
+    rationale: "Ratified Protocol v1.1 Amendment: Standardized 15-minute grid bin Bin(t) = (t - 15min, t] intersects issue interval I = [s, e] if and only if s <= t and e > t - 15min, preventing boundary observation failure contamination in ground truth."
+
+
+meter_metadata:
+  schema:
+    - "meter_id"
+    - "meter_type"
+    - "history_start"
+    - "history_end"
+    - "history_duration_days"
+    - "median_gap_seconds"
+    - "p95_gap_seconds"
+    - "max_gap_seconds"
+    - "occupied_15min_rate"
+    - "cadence_class"
+    - "cadence_nonstationary"
+    - "core_eligible"
+  meter_types:
+    - "electrical_load"
+    - "electrical_generation/PV"
+    - "thermal_cooling"
+    - "thermal_heating"
+    - "other"
+    - "unknown"
+  meter_type_evidence_rule: "Phải xác định bằng evidence từ source documentation / metadata nếu có. Nếu suy ra từ naming convention, phải ghi rõ rule, ghi confidence/evidence, không trình bày như source fact."
+
+core_population:
+  general_rule: "history_duration_days(m) >= 365 AND median_gap_seconds(m) <= 900 AND occupied_15min_rate(m) >= 0.50 AND measurement_semantics(m) = 'W'"
+  history_duration_days_min: 365
+  median_gap_seconds_max: 900
+  occupied_15min_rate_min: 0.50
+  measurement_semantics: "W"
+  scope_disclosure: "Thresholds 365 days / 900 seconds / 50% were specified after inspecting the observed dataset, but before any model training, imputation result, ranking analysis, or performance-based selection. Since all 79 meters satisfy the rule, the rule does not act as an outcome-driven exclusion criterion in the current population. This fact must be disclosed explicitly as a limitation / scope note."
+  retained_meter_count: 79
+  h1_ze20:
+    history_days: 396.61
+    approx_days: 397
+    status: "Core Eligible (H1.ZE20 có khoảng 397 ngày dữ liệu, nên chỉ vượt ngưỡng lịch sử một cách vừa đủ; meter vẫn Core Eligible theo rule chung)"
+    downstream_temporal_split_constraint: "Must verify presence during split period; never force into windows prior to installation (2022-11-30)"
+  hvac_diversity_claim: "K/W meters bổ sung diversity về loại hình đo năng lượng, bên cạnh electrical-load meters."
+
+cadence_classification:
+  classifier_metric: "median_positive_inter_observation_gap"
+  thresholds_seconds:
+    C15S: [0.0, 22.5]
+    C30S: [22.5, 45.0]
+    C1M: [45.0, 90.0]
+    C2M: [90.0, 180.0]
+    C6M: [180.0, 540.0]
+    C10M_PLUS: [540.0, 900.0]
+    SPARSE_GT15M: [900.0, null]
+  nonstationary_detection:
+    window: "calendar_month"
+    min_window_observations: 100
+
+feature_governance:
+  forbidden_as_imputation_inputs:
+    - "raw_record_count"
+    - "bin_completeness"
+    - "expected_record_count"
+  rationale: "In masked evaluation windows, providing raw count or bin completeness leaks ground-truth observation presence to imputation models."
+
+reconciliation:
+  raw_w_total_records: 208286269
+  deduplicated_w_records: 208224479
+  v_z84_duplicate_records: 61790
+  formula: "208286269 == 208224479 + 61790"
