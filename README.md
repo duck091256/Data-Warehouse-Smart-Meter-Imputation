@@ -117,7 +117,7 @@ flowchart TD
 1. **Protected Raw Data**: `data/raw/` is strictly read-only; scripts never modify source files.
 2. **Ground Truth Authenticity**: Corrected records (`_corrected_raw` from inverted CT sensors) are strictly excluded from ground truth. Ground truth is extracted only from uncompromised clean segments.
 3. **Zero Synthetic Observations**: The downsampling grid preserves bit-for-bit raw sensor values selected via the `LAST` operator. No mathematical smoothing, averaging, or artificial interpolation is performed during ETL.
-4. **Occupied Bin Preservation**: Every 15-minute grid bin containing $\ge 1$ observation yields exactly one non-null record ($count(\text{non\_nan\_15min}) == count(\text{raw\_occupied\_bins})$).
+4. **Occupied Bin Preservation**: Every 15-minute grid bin containing $\ge 1$ observation yields exactly one non-null record (`count(non_nan_15min) == count(raw_occupied_bins)`).
 5. **Anti-Feature Leakage**: Raw record counts and bin completeness metrics are stored exclusively as descriptive audit metadata. They are strictly prohibited as input features for imputation models.
 
 ---
@@ -276,7 +276,17 @@ python3 etl/quality_flags.py
 
 ### Core Research Population (Protocol v1.1)
 To ensure objective, unbiased evaluation, meter retention is defined by a deterministic rule specified prior to model training:
-$$\text{CoreEligible}(m) \iff \text{history\_days}(m) \ge 365 \land \text{median\_gap}(m) \le 900\text{s} \land \text{occupied\_rate}(m) \ge 0.50 \land \text{var}(m) = \text{'W'}$$
+```text
+CoreEligible(m) iff
+    history_duration_days(m) >= 365
+    AND
+    median_gap_seconds(m) <= 900
+    AND
+    occupied_15min_rate(m) >= 0.50
+    AND
+    measurement_semantics(m) = 'W'
+```
+
 - **Retention**: **79 of 79 available $W$ meters** satisfy the rule and are retained in the core population.
 - **Meter `H1.ZE20`**: Retained with 396.61 days history (~397 days). Downstream train/test splits must not evaluate `H1.ZE20` before its installation date (2022-11-30).
 
