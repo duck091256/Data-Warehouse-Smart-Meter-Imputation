@@ -1,0 +1,61 @@
+{
+  "task": "P1-T5",
+  "readiness": "READY_FOR_FINAL_GATE",
+  "timestamp": "2026-10-14T22:04:10.150912+00:00",
+  "verified": [
+    "Lossless durable preservation verified by original-tree entries and file hashes",
+    "Fresh-context independent all-bin audit VERIFIED",
+    "7135 maximal segments; 12021273 covered bins; 79 per-meter stats rows; every count delta zero",
+    "UTC15min continuity, inclusive boundaries, GT flags, finite authentic source values, corrected-source exclusion, no duplicate/overlap",
+    "Existing production/reproduction actual Parquet bytes identical; provenance semantic reconciliation PASS",
+    "31 independent synthetic tests passed; final control gate PASS with 68 control tests",
+    "Canonical state, HEAD, code, config, tests and production artifacts unchanged during final-audit phase"
+  ],
+  "failed": [],
+  "unresolved_technical": [],
+  "researcher_decisions": [
+    "Accept the P1-T5 final human gate on this exact package/candidate/artifact identity.",
+    "If desired after acceptance, separately authorize Integrator to record canonical state; no current authorization to mutate state or integrate Git."
+  ],
+  "input_sha256": "c672d5a4efc6cb636708480675e6a2947c436373b05f1bfb8e3307dc9299d279",
+  "config_sha256": "4277ec90e5ec29c91dab10e49e36f19a9d411b8c6f4cff9e7208b0567ff5366c",
+  "implementation_sha256": "af75261d1d1cf0cd73e1f325bea3a215e41559a553f452c27c479e59ee15e950",
+  "test_sha256": "55de7f60264b74f386626b3392f5b407a4377661111ecb4711659de45628bf56",
+  "git_commit": "fe21132f0a40863646bf23971cfca49a7444be67",
+  "state_sha256": "e60c2acb655985c71c1dc89c78dbb6a425f4ac1cd39c74a0bbe745716cb60660",
+  "production_hashes": {
+    "clean_segments.parquet": "b110505eed14acbcb60f68abf8902c0674f8ecf3e5c509f679de5e98082ba0aa",
+    "clean_segments_stats.parquet": "a1b50e601522b704473287bbdac82eceff103d7d0ced59136a6f670eb8ddb538",
+    "clean_segments_metadata.json": "6666c65d8853191e31c89e7879764b7bf3d4e4cf529aad65864304100eb6644f"
+  },
+  "L": 48,
+  "seed": 731,
+  "independent_auditor": "/root/p1_t5_independent_final_audit",
+  "independent_audit_report_sha256": "1fff9f4d354ea28a3b3d6aa957e50c0a8dc45c2024f93191aed08eca836b1d2a",
+  "independent_verification_sha256": "cc3996c874ddb2e5ceddf8d8f72c9016b7d707139c61883327bdd60a14055d18",
+  "counts": {
+    "source_bins": 13981597,
+    "clean_bins": 12637042,
+    "all_maximal_clean_runs": 132721,
+    "retained_segments": 7135,
+    "retained_bins": 12021273,
+    "meters": 79,
+    "zero_yield_meters": [],
+    "min_length": 48,
+    "max_length": 130717
+  },
+  "final_control_gate": {
+    "verdict": "PASS",
+    "tests_passed": 68,
+    "log_sha256": "248c1777ab60be0a5476c5ab5672a3999d42250d5383fd6ed463c0538c873d7c"
+  },
+  "scope_record_sha256": "3301ef998fbd4980a83b77831aa68438afbaccd2d306bb3feb432aae592a90d4",
+  "scope_authority": "Direct Researcher approval recorded in authorization_record.md; record is not a signature or new delegation of power.",
+  "phase_changes": "New durable evidence-package files only; no existing repository/artifact contents changed.",
+  "limitations": [
+    "Meta_Run reconciliation is truthfully PENDING under approved pre-warehouse sidecar arrangement; later ingestion remains future work.",
+    "Entire historical external raw byte immutability is upstream assurance, not re-proven here; approved flagged source dependency hash is independently exact.",
+    "Two resolved audit-harness diagnostics preserved; final acceptance comes from independent v3.",
+    "Readiness is not GATED, canonical state promotion, whole-stage P1 acceptance or P1-T6 authorization."
+  ]
+}

@@ -1,0 +1,8 @@
+# P1-T5 candidate only. null intentionally blocks execution until scientific approval.
+# Paths are relative to this config file, unlike src/config.py's repo-relative loader.
+clean_segments:
+  input: ../data/interim/readings_15min_flagged.parquet
+  output_dir: ../data/processed
+  min_length_steps: 48
+# Proposed contract: inclusive UTC grid start/end; length counts 15-minute bins.
+# Proposed L=48; alternatives 96/192/672 discussed in reports/p1_t5_log.md.

@@ -1,0 +1,54 @@
+{
+  "task": "P1-T5",
+  "verdict": "BLOCKED_CANONICAL_STATE_RECORDING",
+  "timestamp": "2026-10-14T22:15:05.196130+00:00",
+  "researcher_final_human_gate": "ACCEPTED by direct Researcher instruction in this chat; original final evidence remains unchanged",
+  "approved_identity_verified": true,
+  "evidence_package_sha256": "55124641582d83000f17048af245ddd8c0f8d7a71ce4258f4d9c3903f29616d7",
+  "canonical_state": {
+    "current_stage": "P1",
+    "current_task": "P1-T4",
+    "P1_T5": {
+      "status": "BLOCKED",
+      "test": "NOT_RUN",
+      "audit": "NOT_REQUIRED"
+    },
+    "P1_T6": {
+      "status": "BLOCKED",
+      "test": "NOT_RUN",
+      "audit": "NOT_REQUIRED"
+    }
+  },
+  "state_modified": false,
+  "proposed_state_machine_validation": "PASS in memory: P1-T5 GATED/PASSED/PASSED; no canonical write",
+  "scope_preflight": "BLOCKED: P0a cannot authorize protocol, raw, canonical state or policy exceptions",
+  "blocker": "control/check_scope.py immutable-exception list includes control/task_state.yaml. An explicit Integrator human authorization does not remove this unconditional machine rejection. A canonical write would cause the mandatory scope gate to fail; no bypass or policy mutation performed.",
+  "commit_or_tracking_requirement": "No mandatory commit/tracked-artifact prerequisite for P1-T5 GATED found in authoritative protocol/state validator; the actual blocker is canonical-state scope policy.",
+  "control_gate": {
+    "verdict": "PASS on unchanged canonical state only",
+    "tests_passed": 68,
+    "failed": 0,
+    "log_sha256": "17fefd04e866af4821de66aeda7659d759326b7d0b20c2c193c6449fa93dc65d",
+    "command": [
+      "bash",
+      "control/gate.sh",
+      "--base",
+      "fe21132f0a40863646bf23971cfca49a7444be67",
+      "--scope-manifest",
+      "/tmp/p1_t5_integrator_gate_scope_j4re62zq.json"
+    ]
+  },
+  "git_head": "fe21132f0a40863646bf23971cfca49a7444be67",
+  "git_status": "?? configs/p1_t5.yaml\n?? data/audit_results/p1_t5_final_gate_20261015_607ccd82/\n?? data/audit_results/p1_t5_integration_checkpoint_20261015_8574ae5f/\n?? etl/clean_segments.py\n?? reports/p1_t5_log.md\n?? tests/test_P1_T5.py\n",
+  "tracked_diff": "empty",
+  "staged_diff": "empty",
+  "created_files": [
+    "proposed_state_scope.json",
+    "scope_record.json",
+    "control_gate.log",
+    "checkpoint.json",
+    "CHECKPOINT.md"
+  ],
+  "remaining_authorization": "A narrowly authorized policy-compatible Integrator mechanism for recording control/task_state.yaml is required; current authorization does not permit changing the checker/policy. No additional scientific acceptance or production/audit rerun required.",
+  "prohibited_actions_performed": false
+}
