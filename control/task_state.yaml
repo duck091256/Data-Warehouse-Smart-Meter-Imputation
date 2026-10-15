@@ -12,7 +12,7 @@
 protocol_version: "v1.1"
 
 current_stage: "P1"
-current_task: "P1-T4"
+current_task: "P1-T5"
 
 tasks:
   CONTROL_LAYER:
@@ -41,9 +41,9 @@ tasks:
     audit: "PASSED"
 
   P1-T5:
-    status: "BLOCKED"
-    test: "NOT_RUN"
-    audit: "NOT_REQUIRED"
+    status: "GATED"
+    test: "PASSED"
+    audit: "PASSED"
 
   P1-T6:
     status: "BLOCKED"
