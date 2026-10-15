@@ -128,3 +128,118 @@ Ghi candidate base/diff identity, approved scope, Python executable, commands v�
 Đối chiếu lại scope, protocol hashes và state sau test. Independent Auditor review cùng candidate;
 canonical state và Git integration chỉ đổi theo authorization riêng. Sửa code sau kiểm chứng
 làm mất hiệu lực evidence liên quan, cần chạy lại kiểm tra bị ảnh hưởng.
+
+## 7. Governance Amendment v1 — pinned finalization verification
+
+P0a/default behavior above is unchanged. A separate opt-in Integrator path verifies an
+explicitly approved finalization of **one research task to GATED/PASSED/PASSED**. It does
+not support arbitrary state edits, starting the next task, failed-state repair, protocol
+changes, or automatic state writes. This narrow operation addresses canonical-recording
+lag after final acceptance; BLOCKED/READY/IN_PROGRESS/TEST_PASSED/AUDIT_PASSED may be
+finalized only when all preceding tasks exist and are GATED and final acceptance is bound.
+The pointer may be the target itself or its immediate gated predecessor. All other task
+entries and protocol fields are preserved. A generic snapshot PASS is not authorization.
+
+```bash
+"$PYTHON" -I -B control/check_scope.py --base "$BASE_SHA" --scope-manifest "$APPROVAL_JSON" \
+  --state-transition /external/transition.json --authorization-sha256 "$RESEARCHER_PIN"
+PYTHON="$PYTHON" bash control/gate.sh --base "$BASE_SHA" --scope-manifest "$APPROVAL_JSON" \
+  --state-transition /external/transition.json --authorization-sha256 "$RESEARCHER_PIN"
+```
+
+These are read-only verifiers of the candidate state, not commands that apply a transition. Transition CLI requires Python `-I`; the gate selects it automatically for Python checks/tests. This removes candidate/PYTHONPATH dependency shadowing. It compiles verified validator source bytes directly and refuses root/control/test `.pyc` caches (which `-B` alone would still read). Use a clean isolated checkout; do not silently delete existing caches to force PASS. The selected Python environment and executable gate/checker must themselves be trusted. Transition verification prohibits Git clean/process filters and fsmonitor callbacks, compares all other BASE tracked files to actual physical bytes/Git executable flags (or pinned frozen byte/permission identities), and rejects extra Python files at repository root and under control/tests. Git replacement objects are disabled for baseline identity reads in both default and transition checks. Transition pytest disables conftest discovery and assertion-rewrite caches. Git baseline mode records executable flags rather than umask-specific write bits; special permission bits are refused, and frozen identities bind full ordinary permission bits. This mode deliberately requires an untransformed, regular-file checkout; sparse/symlink/submodule/transformed checkouts fail closed. Ignored data outside these critical code paths still needs filesystem protection.
+Transition mode stops immediately on any check failure, before executing downstream validators/tests that scope may have rejected. Default P0a mode retains its existing aggregated diagnostics. The gate still requires scope, protocol hashes, state validation and control regressions;
+when the transition regression suite exists in candidate or approved base, it is mandatory
+as well. Existing legacy fixture repositories without that suite remain testable.
+The amended controls must first be reviewed and integrated into a trusted baseline before
+using this mode: control/check_scope.py, gate.sh, validate_state.py, protocol_hash.sh and
+policy/hash manifests must match the approved BASE bytes. HEAD must equal BASE exactly.
+
+### Approval and evidence contract
+
+The Researcher must approve the exact external record digest through a trusted human
+channel, together with actual task acceptance. `RESEARCHER_PIN` comes from that approval;
+workers must not compute a new digest and present it as fresh approval after editing a
+record. A `role` string, JSON record, external location, or hash **does not authenticate
+human identity**. The operator/independent reviewer must verify actual authorization and
+pin provenance. This is an operator-trusted, offline binding mechanism, not digital signing.
+The current implementation authorization does not authorize a real P1-T5 transition.
+
+`transition.json` requires exactly these fields (version is integer 1):
+
+```json
+{
+  "version": 1,
+  "operation": "FINALIZE_TASK",
+  "role": "Researcher",
+  "decision": "APPROVE_CANONICAL_TRANSITION",
+  "reference": "actual direct human approval reference for this exact transition",
+  "approved_at": "UTC ISO timestamp ending Z",
+  "expires_at": "UTC ISO timestamp ending Z",
+  "task_id": "exact task ID",
+  "base_commit": "full approved HEAD SHA",
+  "before_sha256": "SHA256 of BASE:control/task_state.yaml bytes",
+  "after_sha256": "SHA256 of exact candidate control/task_state.yaml bytes",
+  "delta": [{"path": ["tasks", "exact task ID", "status"], "before": "BLOCKED", "after": "GATED"}],
+  "scope_sha256": "SHA256 of exact external approved scope JSON bytes",
+  "authorization_evidence": {"path": "/external/human-approval.md", "sha256": "actual byte hash"},
+  "final_acceptance": {"path": "/external/acceptance.json", "sha256": "actual byte hash"},
+  "frozen_files": {}
+}
+```
+
+The sample delta is schematic and incomplete: supply the entire stable list returned by
+`semantic_delta(before, after)`, including pointer/stage and test/audit changes when they
+actually change. Delta contains only string-key paths and exact old/new values; it cannot
+execute expressions. `after` must equal a deep copy of `before` with only target status,
+test, audit and current pointer/stage updated. Strict YAML rejects duplicate keys, anchors,
+aliases and non-string scalar fields; strict JSON rejects duplicate/extra fields and NaN.
+Expired/future approvals, replay on a new HEAD/base, wrong pre/post/scope/evidence hashes,
+unknown task, skipped/missing prerequisite, unrelated changes or already GATED task fail.
+State index content must be the approved old or new image; conflicting index and mode
+changes fail. Hidden assume-unchanged/skip-worktree index flags are forbidden; every non-state index entry must equal BASE, including intent-to-add detection. No new token database or second canonical state store is introduced.
+Rechecking the same candidate during the approval window is deliberately idempotent;
+read-only gates do not consume approvals. After integration/another baseline, a new record
+and human pin are required. Protect the pin/approval channel; coordinated malicious record
+and pin replacement cannot be authenticated by this offline verifier.
+
+`acceptance.json` is a separately pinned human-reviewed wrapper around existing final-gate
+and auditor evidence; do not edit the original package to fit this format:
+
+```json
+{
+  "task_id": "exact task ID",
+  "verdict": "ACCEPTED",
+  "test": "PASSED",
+  "audit": "PASSED",
+  "evidence": [{"path": "/absolute/path/to/final-gate-or-audit-evidence", "sha256": "actual byte hash"}]
+}
+```
+
+Evidence references must be absolute regular files without symlink components. Approval,
+scope and acceptance records must be outside checkout. References bind evidence bytes;
+they do not execute tests, establish scientific truth, authenticate the auditor or verify
+unlisted data dependencies. The Researcher/reviewer must check evidence sufficiency and
+candidate/artifact identity. No scientific ETL is triggered by this governance gate.
+
+### Exact scope with existing accepted files
+
+The unchanged four-field scope manifest must contain the canonical state path and its exact
+exception. In transition mode its allowlist must equal the actual Git change union, and
+`frozen_files` must map **every other existing changed path** to an object with exactly `sha256` (approved byte hash) and `mode` (integer Unix permission bits, e.g. decimal 420 for 0644). Both must match; chmod drift fails.
+A cumulative historical exception may cover an unchanged previously accepted untracked
+test; it does not grant new test modification authority. Additional changed control,
+protocol/raw paths and tracked protected files are forbidden even if listed/frozen.
+Unrelated staged changes are forbidden. New/missing/modified frozen files, unused allowlist
+paths or unlisted exceptions fail. Ignored/external artifacts require pinned acceptance
+evidence references and read-only filesystem protection; Git scope cannot observe transient
+or ignored writes. These verifiers perform no writes and cannot enforce external process
+permissions. No switch of base, diagnostic policy override, hash bootstrap, or weaker test
+assertions is an approved workaround.
+
+Safe operator sequence: integrate/review governance code under its own authorization;
+verify accepted research evidence and exact baseline; construct the proposed state bytes
+outside canonical storage; obtain Researcher approval of the exact record/digest and later
+write scope; an authorized Integrator applies only those approved bytes; run this mandatory
+gate and independent review before any separately approved Git integration. Stop on stale
+inputs, missing/expired approval or any failed check. Do not advance the next task.
