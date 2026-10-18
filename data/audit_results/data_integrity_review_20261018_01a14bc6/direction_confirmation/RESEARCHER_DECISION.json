@@ -1,0 +1,22 @@
+{
+  "human_message": "đồng ý hai hướng đó",
+  "approval_context": "Reply to two numbered proposals in preceding assistant message",
+  "decisions": {
+    "segment_storage": {
+      "minimum_length_steps": 48,
+      "context_96": "assess per mask/model; not universal storage constraint"
+    },
+    "imputation_target": {
+      "variable": "W",
+      "semantics": "cumulative register",
+      "interval_differencing": "not authorized"
+    }
+  },
+  "limits": [
+    "Per-meter raw unit mapping remains UNKNOWN without source evidence",
+    "No automatic scaling, polarity adjustment, reset repair or vendor corrected ground truth",
+    "No P2 execution, protocol rewrite, canonical state promotion, production replacement or Git integration authorized by this message"
+  ],
+  "git_commit": "f3c2dbadf91554107be477ed9c1b3381a112c892",
+  "kind": "Transcription of user decision, not independently authenticated gate receipt"
+}
